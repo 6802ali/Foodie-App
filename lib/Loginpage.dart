@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'Home.dart';
 class LoginPage extends StatelessWidget {
-
   final PageController _controller = PageController();
 
-  LoginPage({Key? key, required this.title, required PageController controller}) : super(key: key);
+  LoginPage({Key? key, required this.title, required PageController controller})
+      : super(key: key);
 
   final String title;
 
@@ -216,7 +216,12 @@ class LoginPage extends StatelessWidget {
                                     minimumSize: const Size(256, 49),
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Home(),
+                                    ));
                                   },
                                   child: const Text('Login'),
                                 ),

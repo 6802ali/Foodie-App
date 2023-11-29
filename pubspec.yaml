@@ -65,7 +65,20 @@ flutter:
     - assets/images/Safe Food.svg
     - assets/images/Tracking & Maps.svg
     - assets/images/Registeration.svg
-    
+    - assets/sidebarIcon.png
+    - assets/profilePicPlaceholder.png
+    - assets/locIcon.png
+    - assets/searchIcon.png
+    - assets/placeholderOffer1.png
+    - assets/placeholderOffer2.png
+    - assets/ellipse_grey.png
+    - assets/ellipse_green.png
+    - assets/rightArrow.png
+    - assets/ChickenBiryani.png
+    - assets/SauceTonkatsu.png
+    - assets/ChickenKatsu.png
+    - assets/Dumpling.png
+    - assets/HotelZamanRestaurant.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
