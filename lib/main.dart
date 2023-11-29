@@ -3,18 +3,17 @@ import 'Screens/onboarding/Nearby.dart';
 import 'Screens/onboarding/Select.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // Create a PageController to pass to Nearby widget
+  final PageController _pageController = PageController();
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: Nearby()
+    return MaterialApp(
+      home: Nearby(controller: _pageController), // Provide the controller here
     );
   }
 }
-

@@ -64,9 +64,8 @@ flutter:
     - assets/images/Order illustration.svg
     - assets/images/Safe Food.svg
     - assets/images/Tracking & Maps.svg
-
-
-
+    - assets/images/Registeration.svg
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

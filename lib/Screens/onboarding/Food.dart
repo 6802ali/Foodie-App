@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'Nearby.dart';
+import '../../Loginpage.dart';
 
 class Food extends StatelessWidget {
   final PageController controller;
@@ -62,7 +62,7 @@ class Food extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Food(controller: controller)),
+                        MaterialPageRoute(builder: (context) => LoginPage(title: 'Login',controller: controller)),
                       );
                     },
                     child: const Text('Skip'),
@@ -79,9 +79,8 @@ class Food extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      controller.nextPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.ease,
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => LoginPage(title: 'Login',controller: controller)),
                       );
                     },
                     icon: const Icon(Icons.arrow_forward),

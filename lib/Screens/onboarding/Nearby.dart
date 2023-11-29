@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Loginpage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'select.dart';
 
-class Nearby extends StatelessWidget {
-  final PageController _controller = PageController();
+final _controller = PageController();
 
-  Nearby({super.key});
+
+class Nearby extends StatelessWidget {
+
+  final PageController controller;
+
+  const Nearby({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +66,8 @@ class Nearby extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Select(controller: _controller)),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => LoginPage(title: 'Login',controller: controller)),
                       );
                     },
                     child: const Text('Skip'),
