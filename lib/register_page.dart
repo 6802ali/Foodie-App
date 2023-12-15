@@ -5,7 +5,6 @@ import 'package:flutter_application_1/register_page_widgets/login_view.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,18 +12,16 @@ class RegisterPage extends StatelessWidget {
         title: const Text("Food Media"),
         backgroundColor: const Color(0xFF32B768),
       ),
-      body: Builder(
-        builder: (context) => const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              WelcomMessage(),
-              SizedBox(height: 20),
-              CreateAccount(),
-              SizedBox(height: 20),
-              Login(),
-            ],
-          ),
+      body: const Center(
+        child: Column(
+          children: [
+            SizedBox(height: 40),
+            WelcomMessage(),
+            SizedBox(height: 20),
+            CreateAccount(),
+            SizedBox(height: 20),
+            Login(),
+          ],
         ),
       ),
     );
