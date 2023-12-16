@@ -3,6 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/register_page_widgets/forget_password/forget_password.dart';
 
 class LoginBottomSheet extends StatefulWidget {
   const LoginBottomSheet({super.key});
@@ -148,6 +149,34 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
               ),
             ),
             // Forgot Password Button
+            // Padding(
+            // padding: const EdgeInsets.all(16),
+            // child: TextButton(
+            //   style: TextButton.styleFrom(
+            //     foregroundColor: Colors.white,
+            //     backgroundColor: const Color(0xFF32B768),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(50),
+            //     ),
+            ////////////////////////////////////////////////////////////////
+            ///copy of above button
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color(0xFF32B768),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  minimumSize: const Size(256, 49),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('forget_password');
+                },
+                child: const Text('forgot password'),
+              ),
+            ),
           ],
         ),
       ),

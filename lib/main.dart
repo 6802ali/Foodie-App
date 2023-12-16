@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/register_page.dart';
+import 'package:flutter_application_1/register_page_widgets/forget_password/forget_password.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'home': (context) => const Homepage(),
         'RegisterPage': (context) => const RegisterPage(),
+         'forget_password': (context) => const forget_password(),
+        
       },
     );
   }
