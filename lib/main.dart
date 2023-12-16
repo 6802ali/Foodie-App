@@ -1,39 +1,53 @@
+// ignore_for_file: avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/firebase_options.dart';
+import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/register_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  } catch (e) {
+    print('------------------Error initializing Firebase: $e');
+  }
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize Firebase before building the app
-      future: Firebase.initializeApp(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          // Firebase has been initialized, build your app
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: RegisterPage(),
-          );
-        } else if (snapshot.hasError) {
-          // Handle Firebase initialization error
-          return ErrorWidget("Error initializing Firebase: ${snapshot.error}");
-        } else {
-          // Firebase is still initializing, show a loading text
-          return const MaterialApp(
-            home: Scaffold(
-              body: Center(
-                child: Text('Loading...'),
-              ),
-            ),
-          );
-        }
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FirebaseAuth.instance.currentUser == null
+          ? const RegisterPage()
+          : const Homepage(),
+      routes: {
+        'home': (context) => const Homepage(),
+        'RegisterPage': (context) => const RegisterPage(),
       },
     );
   }

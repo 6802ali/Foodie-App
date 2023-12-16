@@ -12,16 +12,18 @@ class RegisterPage extends StatelessWidget {
         title: const Text("Food Media"),
         backgroundColor: const Color(0xFF32B768),
       ),
-      body: const Center(
-        child: Column(
-          children: [
-            SizedBox(height: 40),
-            WelcomMessage(),
-            SizedBox(height: 20),
-            CreateAccount(),
-            SizedBox(height: 20),
-            Login(),
-          ],
+      body: const SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 40),
+              WelcomMessage(),
+              SizedBox(height: 20),
+              CreateAccount(),
+              SizedBox(height: 20),
+              Login(),
+            ],
+          ),
         ),
       ),
     );
