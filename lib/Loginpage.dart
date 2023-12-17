@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/firebase/Meal.dart';
+import 'package:flutter_application_1/firebase/Users.dart';
 import 'package:flutter_svg/svg.dart';
 import 'Home.dart';
+
 class LoginPage extends StatelessWidget {
   final PageController _controller = PageController();
 
@@ -152,7 +155,9 @@ class LoginPage extends StatelessWidget {
                   minimumSize: const Size(256, 49),
                 ),
                 child: const Text("Login"),
-                onPressed: () {
+                onPressed: () async {
+                  await Firemeal.updatemeal("3",meal_price: 1,meal_description: "testing the update method",meal_name: "testing name");
+                  // ignore: use_build_context_synchronously
                   showModalBottomSheet(
                     context: context,
                     shape: const RoundedRectangleBorder(
