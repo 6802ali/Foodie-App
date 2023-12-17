@@ -9,11 +9,11 @@ class WelcomMessage extends StatelessWidget {
       children: [
         Image.asset(
           'assets/Order.png',
-          width: 100,
-          height: 100,
+          width: 200,
+          height: 200,
         ),
         const Padding(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(8),
           child: Text(
             'Welcome!',
             textAlign: TextAlign.center,

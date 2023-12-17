@@ -116,7 +116,7 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  minimumSize: const Size(256, 49),
+                  minimumSize: const Size(200, 49),
                 ),
                 onPressed: () async {
                   try {
@@ -127,40 +127,32 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
 
                     Navigator.of(context).pushReplacementNamed('home');
                   } on FirebaseAuthException catch (e) {
+                    String errorMessage;
                     if (e.code == 'email-already-in-use') {
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
-                        title: 'Error',
-                        desc: 'The account already exists for that email.',
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {},
-                      ).show();
+                      errorMessage =
+                          'The account already exists for that email.';
                     } else if (e.code == 'weak-password') {
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
-                        title: 'Error',
-                        desc: 'The password provided is too weak.',
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {},
-                      ).show();
+                      errorMessage = 'The password provided is too weak.';
+                    } else if (emailAddress.text == '' ||
+                        password.text == '' ||
+                        fullName.text == '') {
+                      errorMessage = 'Please fill in all the fields.';
                     } else {
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
-                        title: 'Error',
-                        desc: 'Error: ${e.message}',
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () {},
-                      ).show();
+                      errorMessage =
+                          e.message ?? 'An unexpected error occurred.';
                     }
+
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.error,
+                      animType: AnimType.rightSlide,
+                      title: 'Error',
+                      desc: errorMessage,
+                      btnOkOnPress: () {},
+                    ).show();
                   }
                 },
-                child: const Text('Sign Up'), // Corrected the text to "Sign Up"
+                child: const Text('Sign Up'),
               ),
             ),
           ],

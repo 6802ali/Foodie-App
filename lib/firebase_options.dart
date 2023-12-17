@@ -57,6 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:1725150801:android:33b7b3ebca57ce4b826a70',
     messagingSenderId: '1725150801',
     projectId: 'project-b2728',
+    databaseURL: 'https://project-b2728-default-rtdb.firebaseio.com',
     storageBucket: 'project-b2728.appspot.com',
   );
 }
