@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/firebase/Meal.dart';
+import 'package:flutter_application_1/firebase/Menu.dart';
+import 'package:flutter_application_1/firebase/Restaurant.dart';
 import 'package:flutter_application_1/firebase/Users.dart';
 import 'package:flutter_svg/svg.dart';
 import 'Home.dart';
@@ -156,7 +158,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: const Text("Login"),
                 onPressed: () async {
-                  await Firemeal.updatemeal("3",meal_price: 1,meal_description: "testing the update method",meal_name: "testing name");
+                  await FireRestaurant.getMeals("2");
                   // ignore: use_build_context_synchronously
                   showModalBottomSheet(
                     context: context,

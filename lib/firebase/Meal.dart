@@ -7,31 +7,32 @@ class Firemeal {
       app: firebaseApp,
       databaseURL: "https://project-b2728-default-rtdb.firebaseio.com/");
 
-  static Future getallmeals() async{
+  static Future getallmeals() async {
     final ref = rtdb.ref();
     final snapshot = await ref.child("Meal").get();
-    if (snapshot.exists){
+    if (snapshot.exists) {
       print(snapshot.value);
-    } else{
+    } else {
       print('no data available');
     }
   }
 
-  static Future getmealbyid(String mealID) async{
+  static Future getmealbyid(String mealID) async {
     final ref = rtdb.ref();
     final snapshot = await ref.child("Meal/$mealID").get();
-    if(snapshot.exists){
+    if (snapshot.exists) {
       print(snapshot.value);
-    }else{
+    } else {
       print('no data available');
     }
   }
 
-  static Future<void> createmeal(String mealID, {
+  static Future<void> createmeal(
+    String mealID, {
     required String meal_description,
     required String meal_name,
     required double meal_price,
-  }) async{
+  }) async {
     final ref = rtdb.ref('Meal/$mealID');
 
     Map<String, dynamic> newData = {
@@ -40,43 +41,44 @@ class Firemeal {
       'meal_price': meal_price,
     };
 
-    try{
+    try {
       await ref.set(newData);
       print('insert successful !');
-    }catch (error){
+    } catch (error) {
       print('Error inserting data: $error');
     }
   }
 
-  static Future<void> updatemeal(String mealID,{
+  static Future<void> updatemeal(
+    String mealID, {
     required String? meal_description,
     required String? meal_name,
     required double? meal_price,
-  })async{
+  }) async {
     final ref = rtdb.ref('Meal/$mealID');
 
     Map<String, dynamic> newData = {};
-    if (meal_description != null) newData['meal_description'] = meal_description;
+    if (meal_description != null)
+      newData['meal_description'] = meal_description;
     if (meal_name != null) newData['meal_name'] = meal_name;
     if (meal_price != null) newData['meal_price'] = meal_price;
 
-    try{
+    try {
       await ref.update(newData);
       print('updated successfully!');
-    }catch(error){
+    } catch (error) {
       print('Error updating data: $error');
     }
   }
 
-  static Future<void> deletemeal(String mealID) async{
+  static Future<void> deletemeal(String mealID) async {
     final ref = rtdb.ref('Users/$mealID');
 
-    try{
+    try {
       await ref.remove();
       print('Delete successful');
-    }catch(error){
+    } catch (error) {
       print('Error deleting data: $error');
     }
   }
-
 }
