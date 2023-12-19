@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentication/register_page_widgets/sign_in_with_google.dart';
+import 'package:flutter_application_1/authentication/validation.dart';
 import 'package:get/get.dart';
 
 class LoginBottomSheet extends StatefulWidget {
@@ -18,6 +19,28 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   final hidePassword = true.obs;
+  void showErrorMessage(String message) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.rightSlide,
+      title: 'Error',
+      desc: message,
+      btnOkOnPress: () {},
+    ).show();
+  }
+
+  // Helper function to show a success message
+  void showSuccessMessage(String message) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.success,
+      animType: AnimType.rightSlide,
+      title: 'Success',
+      desc: message,
+      btnOkOnPress: () {},
+    ).show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,51 +105,18 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
             ),
             InkWell(
               onTap: () async {
-                if (email.text == '') {
-                  AwesomeDialog(
-                    context: context,
-                    dialogType: DialogType.error,
-                    animType: AnimType.rightSlide,
-                    title: 'Error',
-                    desc: 'Email Address Can not be Empty',
-                    btnOkOnPress: () {},
-                  ).show();
+                if (email.text.isEmpty) {
+                  showErrorMessage('Please enter your email address');
                   return;
-                } else if (email.text != '') {
-                  if (email.text.contains('@') == false) {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Error',
-                      desc: 'Enter Valid Email Address',
-                      btnOkOnPress: () {},
-                    ).show();
-                    return;
-                  } else {
-                    try {
-                      await FirebaseAuth.instance
-                          .sendPasswordResetEmail(email: email.text);
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.success,
-                        animType: AnimType.rightSlide,
-                        title: 'Success',
-                        desc: 'Password Reset Link Sent to your Email',
-                        btnOkOnPress: () {},
-                      ).show();
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.rightSlide,
-                          title: 'Error',
-                          desc: 'No user found for that email.',
-                        ).show();
-                      }
-                    }
-                  }
+                }
+                try {
+                  await FirebaseAuth.instance
+                      .sendPasswordResetEmail(email: email.text);
+                  showSuccessMessage(
+                      'Password reset link has been sent to your email address');
+                } catch (e) {
+                  showErrorMessage('Failed to send reset email');
+                  return;
                 }
               },
               mouseCursor: SystemMouseCursors.click,
@@ -136,9 +126,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   padding: EdgeInsets.all(8),
                   child: Column(
                     children: [
-                      Text(
-                        "Forgot Password ?",
-                      ),
+                      Text("Forgot Password ?"),
                     ],
                   ),
                 ),
