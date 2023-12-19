@@ -5,7 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/home.dart';
-import 'package:flutter_application_1/register_page.dart';
+import 'package:flutter_application_1/authentication/screens/register_page.dart';
+import 'package:flutter_application_1/authentication/screens/profile_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'home': (context) => const Homepage(),
         'RegisterPage': (context) => const RegisterPage(),
+        'userprofile': (context) => const Profilepage(),
       },
     );
   }

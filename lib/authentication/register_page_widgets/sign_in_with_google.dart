@@ -18,12 +18,12 @@ class _GoogleState extends State<Google> {
     if (googleUser == null) {
       return;
     }
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
@@ -35,7 +35,7 @@ class _GoogleState extends State<Google> {
     return Column(
       children: [
         MaterialButton(
-          color: const Color.fromARGB(255, 228, 21, 21),
+          color: const Color.fromARGB(255, 236, 60, 60),
           textColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),

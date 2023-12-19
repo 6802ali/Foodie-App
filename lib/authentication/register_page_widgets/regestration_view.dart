@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/register_page_widgets/registration_bottomsheet.dart';
+import 'package:flutter_application_1/authentication/register_page_widgets/registration_bottomsheet.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});

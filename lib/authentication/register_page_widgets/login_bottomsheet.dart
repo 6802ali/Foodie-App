@@ -3,7 +3,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/register_page_widgets/sign_in_with_google.dart';
+import 'package:flutter_application_1/authentication/register_page_widgets/sign_in_with_google.dart';
+import 'package:get/get.dart';
 
 class LoginBottomSheet extends StatefulWidget {
   const LoginBottomSheet({super.key});
@@ -15,11 +16,14 @@ class LoginBottomSheet extends StatefulWidget {
 class _LoginBottomSheetState extends State<LoginBottomSheet> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+  final hidePassword = true.obs;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
+      child: Form(
+          child: Container(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
@@ -33,21 +37,15 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 color: Colors.grey,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: Row(
-                children: [
-                  Icon(Icons.email),
-                  SizedBox(width: 8),
-                  Text("Email Address"),
-                ],
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: TextField(
+              child: TextFormField(
                 controller: email,
                 decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: Colors.black,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(50),
@@ -57,28 +55,28 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: Row(
-                children: [
-                  Icon(Icons.lock),
-                  SizedBox(width: 8),
-                  Text("Password"),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TextField(
-                controller: password,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+            Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(8),
+                child: TextFormField(
+                  controller: password,
+                  obscureText: hidePassword.value,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                      color: Colors.black,
                     ),
+                    suffixIcon: IconButton(
+                      onPressed: () => hidePassword.value = !hidePassword.value,
+                      icon: const Icon(Icons.visibility),
+                    ),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                    labelText: 'Enter Password',
                   ),
-                  labelText: 'Enter Password',
                 ),
               ),
             ),
@@ -196,12 +194,13 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 child: const Text('Login'),
               ),
             ),
+            const Text('OR'),
             const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 64, vertical: 10),
                 child: Google())
           ],
         ),
-      ),
+      )),
     );
   }
 }
