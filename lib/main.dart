@@ -4,10 +4,12 @@ import 'Screens/onboarding/Select.dart';
 import 'Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'Restaurantswidget/restaurantpage.dart';
+import 'allrestuarant.dart';
 
 Future<void> main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        body: Nearby(controller: _pageController),
+        body: Allrestuarant(), //Nearby(controller: _pageController),
       ),
     );
   }
