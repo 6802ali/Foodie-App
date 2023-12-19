@@ -1,30 +1,44 @@
 import 'package:flutter/material.dart';
+import 'HomeWidgets/Navtabs.dart';
 import 'HomeWidgets/TopBar.dart';
 import 'HomeWidgets/SearchBar.dart';
 import 'HomeWidgets/offer_list.dart';
 import 'HomeWidgets/MealSuggestionsText.dart';
 import 'HomeWidgets/RestaurantsSuggestions.dart';
+import 'SearchWidgets/Search.dart';
+
+import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-            width: double.maxFinite,
-            decoration: BoxDecoration(color: Color(0xFFF6F6F6)),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 18),
-            child: Column(
-              children: [
-                TopBar(),
-                SearchBarr(),
-                OfferList(),
-                OffersListNav(),
-                MealSuggestionsText(),
-                MealSuggestionsList(),
-                RestaurantsSuggestionsText(),
-                RestaurantsSuggestionsList()
-              ],
-            )));
+    return Search(); /* Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16.0),
+                color: Colors.grey[200],
+                child: Column(
+                  children: [
+                    OfferList(),
+                    OffersListNav(),
+                    MealSuggestionsText(),
+                    MealSuggestionsList(),
+                    RestaurantsSuggestionsText(),
+                    RestaurantsSuggestionsList()
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Navtabs()
+        ],
+      ),
+    ); */
   }
 }

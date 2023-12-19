@@ -79,6 +79,8 @@ flutter:
     - assets/ChickenKatsu.png
     - assets/Dumpling.png
     - assets/HotelZamanRestaurant.png
+    - assets/homeicon.png
+    - assets/profileicon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
