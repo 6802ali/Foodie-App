@@ -158,7 +158,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: const Text("Login"),
                 onPressed: () async {
-                  await FireRestaurant.getMeals("2");
+                  // await FireRestaurant.getMeals("2");
                   // ignore: use_build_context_synchronously
                   showModalBottomSheet(
                     context: context,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Home.dart';
 import 'package:flutter_application_1/SearchWidgets/Search.dart';
 
 class Navtabs extends StatelessWidget {
@@ -28,7 +29,7 @@ class Navtabs extends StatelessWidget {
                 // Navigate to the second page when the container is pressed
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Search()),
+                  MaterialPageRoute(builder: (context) => Home()),
                 );
               },
               child: Container(
@@ -57,31 +58,40 @@ class Navtabs extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: Image.asset(
-                        'assets/searchIcon.png',
-                        scale: 0.5,
-                        color: Color.fromARGB(255, 48, 48, 48),
+            child: GestureDetector(
+              onTap: () {
+                // Navigate to the second page when the container is pressed
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Search()),
+                );
+              },
+              child: Container(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Image.asset(
+                          'assets/searchIcon.png',
+                          scale: 0.5,
+                          color: Color.fromARGB(255, 48, 48, 48),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    height: 20,
-                    child: Text(
-                      'Search',
-                      style: TextStyle(
-                          color: Color(0xFF4B5563),
-                          fontSize: 18,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          height: 0.4),
-                    ),
-                  )
-                ],
+                    Container(
+                      height: 20,
+                      child: Text(
+                        'Search',
+                        style: TextStyle(
+                            color: Color(0xFF4B5563),
+                            fontSize: 18,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                            height: 0.4),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

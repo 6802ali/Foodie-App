@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Search(); /* Container(
+    return Container(
       width: double.infinity,
       height: double.infinity,
       child: Column(
@@ -39,6 +39,6 @@ class Home extends StatelessWidget {
           Navtabs()
         ],
       ),
-    ); */
+    );
   }
 }
