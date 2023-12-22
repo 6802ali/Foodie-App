@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentication/screens/profile_page.dart';
+import 'dart:io';
 
-class Updateprofile extends StatelessWidget {
+import 'package:image_picker/image_picker.dart';
+
+class Updateprofile extends StatefulWidget {
   const Updateprofile({super.key});
+
+  @override
+  State<Updateprofile> createState() => _UpdateprofileState();
+}
+
+class _UpdateprofileState extends State<Updateprofile> {
+  File profile_image = 'assets/profile.png'as File;
+
+  final picker = ImagePicker();
+  Future _uploadImage() async {
+    final uploadedImage = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      profile_image = File(uploadedImage!.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +66,7 @@ class Updateprofile extends StatelessWidget {
                     height: 120,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(60),
-                      child: Image.asset(
-                        'assets/profile.png',
-                      ),
+                      child: Image.file(profile_image),
                     ),
                   ),
                   Container(
@@ -59,7 +75,7 @@ class Updateprofile extends StatelessWidget {
                       width: 30,
                       height: 30,
                       child: FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: _uploadImage,
                         backgroundColor: const Color(0xFF32B768),
                         child: const Icon(
                           Icons.camera_alt,
