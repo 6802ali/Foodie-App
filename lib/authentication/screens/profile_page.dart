@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentication/screens/update_profile.dart';
@@ -155,9 +157,7 @@ class Profilepage extends StatelessWidget {
                   GoogleSignIn googleSignIn = GoogleSignIn();
                   googleSignIn.disconnect();
                   await FirebaseAuth.instance.signOut();
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      'RegisterPage', (Route<dynamic> route) => false);
+                  Navigator.of(context).pushReplacementNamed('RegisterPage');
                 },
               ),
             ],

@@ -1,10 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentication/Validation.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegistrationBottomSheet extends StatefulWidget {
   const RegistrationBottomSheet({Key? key}) : super(key: key);
@@ -21,6 +22,30 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
   final TextEditingController password = TextEditingController();
   final TextEditingController fullName = TextEditingController();
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+  CollectionReference user = FirebaseFirestore.instance.collection('user');
+
+  Future<void> addUser() async {
+    // Get the current user from FirebaseAuth
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      // Use the UID as the document ID when adding a new user
+      return user
+          .doc(currentUser.uid)
+          .set({
+            'name': fullName.text,
+            'email': emailAddress.text,
+            'password': password.text,
+            'role': 'customer',
+          })
+          .then((value) => print("User Added with ID: ${currentUser.uid}"))
+          .catchError((error) => print("Failed to add user: $error"));
+    } else {
+      print("Current user is null");
+      // Handle the case where the current user is null (not logged in)
+      // You might want to show an error message or handle it based on your app's logic
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +127,14 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                         color: Colors.black,
                       ),
                       suffixIcon: IconButton(
-                        onPressed: () =>
-                            hidePassword.value = !hidePassword.value,
-                        icon: const Icon(Icons.visibility),
+                        onPressed: () {
+                          hidePassword.value = !hidePassword.value;
+                        },
+                        icon: Icon(
+                          hidePassword.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
                       ),
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
@@ -135,6 +165,7 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                           email: emailAddress.text,
                           password: password.text,
                         );
+                        addUser();
                         Navigator.of(context).pushReplacementNamed('home');
                       }
                     } on FirebaseAuthException catch (e) {
