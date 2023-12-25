@@ -1,4 +1,4 @@
-# flutter_application_1
+# firestore_demo
 
 A new Flutter project.
 
