@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentication/screens/admin_home.dart';
+import 'package:flutter_application_1/authentication/screens/delivary.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/authentication/screens/register_page.dart';
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         'RegisterPage': (context) => const RegisterPage(),
         'userprofile': (context) => const Profilepage(),
         'admin_home': (context) => const Adminpage(),
+        'delivery_home': (context) => const DelivaryPage(),
       },
     );
   }

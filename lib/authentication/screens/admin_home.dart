@@ -2,6 +2,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/authentication/admin_pages/chat.dart';
+import 'package:flutter_application_1/authentication/admin_pages/orders.dart';
+import 'package:flutter_application_1/authentication/admin_pages/reservations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Adminpage extends StatefulWidget {
@@ -12,11 +15,24 @@ class Adminpage extends StatefulWidget {
 }
 
 class _AdminpageState extends State<Adminpage> {
+  int selectedIndex = 0;
+
+  void _navigationBottomBar(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  final List<Widget> _pages = const [
+    ViewOrder(),
+    ViewReservations(),
+    Chat(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Page'),
+        title: const Text('Restaurant Admin Page'),
         actions: [
           IconButton(
             onPressed: () async {
@@ -32,11 +48,25 @@ class _AdminpageState extends State<Adminpage> {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Admin Page'),
+      body: _pages[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Reservations',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Chat',
+          ),
+        ],
+        currentIndex: selectedIndex,
+        onTap: _navigationBottomBar,
       ),
     );
   }
 }
-
-// implmenting admin page and driver page tomorrow inshaAllah 

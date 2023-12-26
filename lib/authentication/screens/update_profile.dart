@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentication/screens/profile_page.dart';
 import 'dart:io';
@@ -12,7 +14,7 @@ class Updateprofile extends StatefulWidget {
 }
 
 class _UpdateprofileState extends State<Updateprofile> {
-  File profile_image = 'assets/profile.png'as File;
+  File profile_image = 'assets/profile.png' as File;
 
   final picker = ImagePicker();
   Future _uploadImage() async {
