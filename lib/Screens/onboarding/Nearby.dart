@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Loginpage.dart';
+// import 'package:flutter_application_1/Loginpage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'select.dart';
@@ -64,14 +64,14 @@ class Nearby extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => LoginPage(title: 'Login',controller: controller)),
-                      );
-                    },
-                    child: const Text('Skip'),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.of(context).push(
+                  //       MaterialPageRoute(builder: (context) => LoginPage(title: 'Login',controller: controller)),
+                  //     );
+                  //   },
+                  //   child: const Text('Skip'),
+                  // ),
                   SmoothPageIndicator(
                     controller: _controller,
                     count: 3,
