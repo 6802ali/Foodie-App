@@ -8,6 +8,7 @@
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:1725150801:android:2a0fce7b82ca5b60826a70",
         "android_client_info": {
           "package_name": "com.example.firestore_demo"
@@ -44,6 +45,8 @@
     },
     {
       "client_info": {
+=======
+>>>>>>> origin/login_signup
         "mobilesdk_app_id": "1:1725150801:android:33b7b3ebca57ce4b826a70",
         "android_client_info": {
           "package_name": "com.example.flutter_application_1"

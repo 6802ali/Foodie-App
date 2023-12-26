@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_demo/Firestore/FirestoreService.dart';
-import 'package:firestore_demo/Firestore/Models/Meal.dart';
-import 'package:firestore_demo/Firestore/Models/Reservation.dart';
-import 'package:firestore_demo/Firestore/Models/Restaurant.dart';
-import 'package:firestore_demo/Firestore/Models/Review.dart';
-import 'package:firestore_demo/Firestore/Models/User.dart';
+import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Firestore/Models/Meal.dart';
+import 'package:foodie/Firestore/Models/Reservation.dart';
+import 'package:foodie/Firestore/Models/Restaurant.dart';
+import 'package:foodie/Firestore/Models/Review.dart';
+import 'package:foodie/Firestore/Models/User.dart';
 
 import 'Models/Access.dart';
 import 'Models/Order.dart' as OrderModel;

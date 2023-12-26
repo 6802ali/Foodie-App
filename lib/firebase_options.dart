@@ -23,9 +23,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -60,29 +66,5 @@ class DefaultFirebaseOptions {
     projectId: 'project-b2728',
     databaseURL: 'https://project-b2728-default-rtdb.firebaseio.com',
     storageBucket: 'project-b2728.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAjEUXkPGycQZA5mBoDqo_dwAqkteYakWc',
-    appId: '1:1725150801:ios:76d97131d0dca84a826a70',
-    messagingSenderId: '1725150801',
-    projectId: 'project-b2728',
-    databaseURL: 'https://project-b2728-default-rtdb.firebaseio.com',
-    storageBucket: 'project-b2728.appspot.com',
-    androidClientId: '1725150801-s2rs63uaecdn11l9j2odh7buc61p7p47.apps.googleusercontent.com',
-    iosClientId: '1725150801-ddii4omhs8sfnu5f25rutt01sdrdumje.apps.googleusercontent.com',
-    iosBundleId: 'com.example.firestoreDemo',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAjEUXkPGycQZA5mBoDqo_dwAqkteYakWc',
-    appId: '1:1725150801:ios:572ead10003c75c1826a70',
-    messagingSenderId: '1725150801',
-    projectId: 'project-b2728',
-    databaseURL: 'https://project-b2728-default-rtdb.firebaseio.com',
-    storageBucket: 'project-b2728.appspot.com',
-    androidClientId: '1725150801-s2rs63uaecdn11l9j2odh7buc61p7p47.apps.googleusercontent.com',
-    iosClientId: '1725150801-e1ug5c5eff1us5fe2d9rn0uk4m1kca0o.apps.googleusercontent.com',
-    iosBundleId: 'com.example.firestoreDemo.RunnerTests',
   );
 }

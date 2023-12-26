@@ -1,8 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firestore_demo/Firestore/FirestoreService.dart';
+import 'package:foodie/Firestore/FirestoreService.dart';
 import 'firebase_options.dart';
+// ignore_for_file: avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie/authentication/screens/admin_home.dart';
+import 'package:foodie/authentication/screens/delivary.dart';
+import 'package:foodie/home.dart';
+import 'package:foodie/authentication/screens/register_page.dart';
+import 'package:foodie/authentication/screens/profile_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,23 +18,33 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  FirestoreService.getAll(Collections.restaurant);
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: Scaffold(
-        body: Text(
-          'text',
-          style: TextStyle(height: 5),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: FirebaseAuth.instance.currentUser == null
+          ? const RegisterPage()
+          : const Homepage(),
+      routes: {
+        'home': (context) => const Homepage(),
+        'RegisterPage': (context) => const RegisterPage(),
+        'userprofile': (context) => const Profilepage(),
+        'admin_home': (context) => const Adminpage(),
+        'delivery_home': (context) => const DelivaryPage(),
+      },
     );
   }
 }

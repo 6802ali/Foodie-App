@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_demo/Firestore/Utilities.dart';
+import 'package:foodie/Firestore/Utilities.dart';
 
 enum Collections { restaurant, user, review, reservation, order, meal, access }
 
@@ -69,6 +69,14 @@ class FirestoreService {
     await col.add(newData);
   }
 
+  static Future<void> addUserWithId(
+      Map<String, dynamic> newData, String id) async {
+    final String colName = 'user';
+    final col = firestore.collection(colName);
+
+    await col.doc(id).set(newData);
+  }
+
   static Future<void> updateDoc(Collections colEnum, String docId,
       Map<String, dynamic> updatedData) async {
     final String colName = colEnum.name;
@@ -107,6 +115,32 @@ class FirestoreService {
 
     try {
       print('FirestoreService.getAllBySearchTerm ($colName): ' + searchTerm);
+      for (dynamic document in result) {
+        print(document);
+      }
+    } catch (error) {
+      print('Error during FirestoreService.getAllBySearchTerm: $error');
+    }
+
+    return result;
+  }
+
+  static Future<List<dynamic>> getAccessByType(
+    String type,
+  ) async {
+    final String colName = 'access';
+    final col = firestore.collection(colName);
+
+    final QuerySnapshot<Map<String, dynamic>> colQuery =
+        await col.where('type', isEqualTo: type).get();
+
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> colDocs =
+        colQuery.docs;
+
+    final result = Utilities.getAllModels(Collections.access, colDocs);
+
+    try {
+      print('FirestoreService.getAccessByType ($colName): ' + type);
       for (dynamic document in result) {
         print(document);
       }
