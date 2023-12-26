@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/authentication/screens/admin_home.dart';
 import 'package:foodie/authentication/screens/delivary.dart';
-import 'package:foodie/home.dart';
+import 'package:foodie/Home.dart';
 import 'package:foodie/authentication/screens/register_page.dart';
 import 'package:foodie/authentication/screens/profile_page.dart';
 
@@ -37,9 +37,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
           ? const RegisterPage()
-          : const Homepage(),
+          : Home(),
       routes: {
-        'home': (context) => const Homepage(),
+        'home': (context) => Home(),
         'RegisterPage': (context) => const RegisterPage(),
         'userprofile': (context) => const Profilepage(),
         'admin_home': (context) => const Adminpage(),

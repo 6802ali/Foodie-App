@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_svg: ^0.22.0 # Use the latest version available
+  smooth_page_indicator: ^1.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -44,6 +45,9 @@ dependencies:
   firebase_admin: ^0.2.0
   image_picker: ^1.0.5
   riverpod: ^2.4.9
+  google_fonts: ^4.0.4
+  firebase_database: ^10.3.8
+  firebase_storage: ^11.5.6
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +73,26 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/Order.png
+    - assets/images/Order illustration.svg
+    - assets/images/Safe Food.svg
+    - assets/images/Tracking & Maps.svg
+    - assets/images/Registeration.svg
+    - assets/sidebarIcon.png
+    - assets/profilePicPlaceholder.png
+    - assets/locIcon.png
+    - assets/searchIcon.png
+    - assets/placeholderOffer1.png
+    - assets/placeholderOffer2.png
+    - assets/ellipse_grey.png
+    - assets/ellipse_green.png
+    - assets/rightArrow.png
+    - assets/ChickenBiryani.png
+    - assets/SauceTonkatsu.png
+    - assets/ChickenKatsu.png
+    - assets/Dumpling.png
+    - assets/HotelZamanRestaurant.png
+    - assets/homeicon.png
+    - assets/profileicon.png
     - assets/google.png
     - assets/profile.png
     

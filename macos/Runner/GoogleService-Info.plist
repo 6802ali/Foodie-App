@@ -3,6 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
+<<<<<<< HEAD
 	<string>AIzaSyDY03wVDPTswyHwUadd2dxjBVrj1x54fZ0</string>
 	<key>GCM_SENDER_ID</key>
 	<string>324419728122</string>
@@ -14,6 +15,19 @@
 	<string>firestore-demo-c4a78</string>
 	<key>STORAGE_BUCKET</key>
 	<string>firestore-demo-c4a78.appspot.com</string>
+=======
+	<string>AIzaSyAjEUXkPGycQZA5mBoDqo_dwAqkteYakWc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1725150801</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flutterApplication1.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>project-b2728</string>
+	<key>STORAGE_BUCKET</key>
+	<string>project-b2728.appspot.com</string>
+>>>>>>> origin/home
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +39,10 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
+<<<<<<< HEAD
 	<string>1:324419728122:ios:1f26dab83eec381925cf43</string>
+=======
+	<string>1:1725150801:ios:39afa60eb64b2599826a70</string>
+>>>>>>> origin/home
 </dict>
 </plist>
