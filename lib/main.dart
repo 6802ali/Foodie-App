@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Searchwidget/search.dart';
+import 'package:flutter_application_1/homewidget/Topbar.dart';
+import 'package:flutter_application_1/homewidget/advertisement.dart';
+import 'package:flutter_application_1/homewidget/suggestedrestaurants.dart';
 import 'Screens/onboarding/Nearby.dart';
 import 'Screens/onboarding/Select.dart';
 import 'Home.dart';
@@ -28,7 +32,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        body: Allrestuarant(), //Nearby(controller: _pageController),
+        body: Home(), //Nearby(controller: _pageController),
       ),
     );
   }

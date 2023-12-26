@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/HomeWidgets/Navtabs.dart';
 import 'package:flutter_application_1/Models/RestaurantModel.dart';
 import 'package:flutter_application_1/firebase/Restaurant.dart';
 
-class allrestaurants extends StatefulWidget {
-  const allrestaurants({Key? key}) : super(key: key);
+class suggestedrestaurants extends StatefulWidget {
+  const suggestedrestaurants({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _allrestaurantsState createState() => _allrestaurantsState();
+  _suggestedrestaurantsState createState() => _suggestedrestaurantsState();
 }
 
-class _allrestaurantsState extends State<allrestaurants> {
+class _suggestedrestaurantsState extends State<suggestedrestaurants> {
   List<RestaurantModel> restaurants = [];
 
   Future getData() async {
@@ -61,7 +60,6 @@ class _allrestaurantsState extends State<allrestaurants> {
             },
           ),
         ),
-        Navtabs(),
       ],
     ),
   );
@@ -79,7 +77,7 @@ class _allrestaurantsState extends State<allrestaurants> {
             Image.network(
               Uri.encodeFull(restaurant.restaurant_img_link.trim()),
               width: 100,
-              height: 120,
+              height: 100,
             ),
           ],
         ),
@@ -119,6 +117,4 @@ class _allrestaurantsState extends State<allrestaurants> {
     ),
   );
 }
-
-  
 }

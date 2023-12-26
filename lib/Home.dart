@@ -5,7 +5,7 @@ import 'HomeWidgets/SearchBar.dart';
 import 'HomeWidgets/offer_list.dart';
 import 'HomeWidgets/MealSuggestionsText.dart';
 import 'HomeWidgets/RestaurantsSuggestions.dart';
-import 'SearchWidgets/Search.dart';
+// import 'SearchWidgets/Search.dart';
 
 import 'package:flutter/material.dart';
 
@@ -30,13 +30,14 @@ class Home extends StatelessWidget {
                     MealSuggestionsText(),
                     MealSuggestionsList(),
                     RestaurantsSuggestionsText(),
-                    RestaurantsSuggestionsList()
+                    RestaurantsSuggestionsList(),
+                    Navtabs(),
                   ],
                 ),
               ),
             ),
           ),
-          Navtabs()
+          // Navtabs()
         ],
       ),
     );

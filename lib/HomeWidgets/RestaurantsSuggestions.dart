@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/allrestuarant.dart';
 
 class RestaurantsSuggestionsText extends StatelessWidget {
   const RestaurantsSuggestionsText({super.key});
@@ -59,16 +60,34 @@ class RestaurantsSuggestionsText extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'See All',
-                  style: TextStyle(
-                    color: Color(0xFF6B7280),
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    height: 0.25,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => allrestaurants()),
+                    );
+                  },
+                  child: Text(
+                    'See All',
+                    style: TextStyle(
+                      color: Color(0xFF6B7280),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500,
+                      height: 0.25,
+                    ),
                   ),
                 ),
+                // Text(
+                //   'See All',
+                //   style: TextStyle(
+                //     color: Color(0xFF6B7280),
+                //     fontSize: 12,
+                //     fontFamily: 'Inter',
+                //     fontWeight: FontWeight.w500,
+                //     height: 0.25,
+                //   ),
+                // ),
                 SizedBox(
                   width: 5,
                 ),

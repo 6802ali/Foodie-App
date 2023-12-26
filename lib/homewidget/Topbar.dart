@@ -13,7 +13,12 @@ class Topbar extends StatefulWidget {
 class _TopbarState extends State<Topbar> {
   List<UserModel> Users = [];
 
-  Future getData() async {
+  // Future getData() async {
+  //   Users = await Firetest.getall();
+  //   // print("rest: " + restaurants[0].toString());
+  // }
+
+  Future getuserData() async {
     Users = await Firetest.getall();
     // print("rest: " + restaurants[0].toString());
   }
@@ -21,7 +26,7 @@ class _TopbarState extends State<Topbar> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getData(),
+      future: getuserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
@@ -50,7 +55,7 @@ class _TopbarState extends State<Topbar> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Hello ' + Users[0].firstname + '!',
+              'Hello ' + Users[1].firstname + '!',
               style: TextStyle(fontSize: 24),
             ),
             Icon(

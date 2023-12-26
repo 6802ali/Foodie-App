@@ -9,6 +9,7 @@ class RestaurantModel {
   final String restaurantName;
   final int tables;
   final String field;
+  final String restaurant_img_link;
 
   RestaurantModel({
     required this.id,
@@ -17,7 +18,8 @@ class RestaurantModel {
     required this.rating,
     required this.restaurantName,
     required this.tables,
-    required this.field
+    required this.field,
+    required this.restaurant_img_link,
   });
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) {
@@ -28,13 +30,14 @@ class RestaurantModel {
       rating: json['rating'] ?? 0.0,
       restaurantName: json['restaurant_name'] ?? '',
       tables: json['tables'] ?? 0,
-      field: json['field']
+      field: json['field'],
+      restaurant_img_link: json['restaurant_img_link'] ?? '',
     );
   }
 
   // toString method
   @override
   String toString() {
-    return 'RestaurantModel{id: $id, location: $location, menu: $menu, rating: $rating, restaurantName: $restaurantName, tables: $tables}';
+    return 'RestaurantModel{id: $id, location: $location, menu: $menu, rating: $rating, restaurantName: $restaurantName, tables: $tables, restaurant_img_link: $restaurant_img_link}';
   }
 }

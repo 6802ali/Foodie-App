@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Home.dart';
-import 'package:flutter_application_1/SearchWidgets/Search.dart';
+import 'package:flutter_application_1/Searchwidget/search.dart';
 
 class Navtabs extends StatelessWidget {
   const Navtabs({super.key});
@@ -63,7 +63,7 @@ class Navtabs extends StatelessWidget {
                 // Navigate to the second page when the container is pressed
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Search()),
+                  MaterialPageRoute(builder: (context) => SearchPage()),
                 );
               },
               child: Container(
