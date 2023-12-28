@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:firebase_core/firebase_core.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Orderspage/orders.dart';
+import 'package:foodie/Orderspage/orderswidget.dart';
+import 'package:foodie/Screens/booked_restaurants.dart';
+import 'package:foodie/navigation.dart';
 import 'firebase_options.dart';
 // ignore_for_file: avoid_print
 
@@ -36,8 +40,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ? const RegisterPage()
-          : Home(),
+          ? Navigation()
+          : Navigation() //page contains navigation to all the pages//
+      ,
       routes: {
         'home': (context) => Home(),
         'RegisterPage': (context) => const RegisterPage(),
