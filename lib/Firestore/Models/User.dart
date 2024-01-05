@@ -7,6 +7,7 @@ class User {
   final String phone_number;
   final String address;
   final String access_id;
+  final String password;
 
   User(
       {required this.id,
@@ -14,6 +15,7 @@ class User {
       required this.email,
       required this.phone_number,
       required this.address,
+      required this.password,
       required this.access_id});
 
   @override
@@ -28,6 +30,7 @@ class User {
     return User(
       id: document.id,
       name: data?['name'],
+      password: data?['password'],
       address: data?['address'],
       email: data?['email'],
       phone_number: data?['phone_number'],
@@ -51,6 +54,7 @@ class User {
     required String phone_number,
     required String address,
     required String access_id,
+    required String password,
   }) {
     return {
       'name': name,
@@ -58,6 +62,7 @@ class User {
       'phone_number': phone_number,
       'address': address,
       'access_id': access_id,
+      'password': password,
     };
   }
 }

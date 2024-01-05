@@ -95,6 +95,7 @@ flutter:
     - assets/profileicon.png
     - assets/google.png
     - assets/profile.png
+    - assets/Order.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

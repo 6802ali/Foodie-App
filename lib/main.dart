@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:firebase_core/firebase_core.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
 import 'firebase_options.dart';
-// ignore_for_file: avoid_print
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/authentication/screens/admin_home.dart';
@@ -37,9 +34,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
           ? const RegisterPage()
-          : Home(),
+          : const Home(),
       routes: {
-        'home': (context) => Home(),
+        'home': (context) => const Home(),
         'RegisterPage': (context) => const RegisterPage(),
         'userprofile': (context) => const Profilepage(),
         'admin_home': (context) => const Adminpage(),

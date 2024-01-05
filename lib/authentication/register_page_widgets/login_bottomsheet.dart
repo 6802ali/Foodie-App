@@ -4,7 +4,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodie/Firestore/FirestoreService.dart';
 import 'package:foodie/authentication/register_page_widgets/sign_in_with_google.dart';
 import 'package:get/get.dart';
 
@@ -52,9 +51,6 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
         email: email.text,
         password: password.text,
       );
-
-      print('User UID: ${credential.user!.uid}');
-
       // Fetch user data from Firestore
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('user')
@@ -74,14 +70,14 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
         }
 
         // Access the 'role' field with the null-aware operator
-        String? userRole = userData['role'] as String?;
+        String? userAccess = userData['access_id'] as String?;
 
         // Navigate based on user role
-        if (userRole == 'admin') {
+        if (userAccess == 'admin') {
           Navigator.of(context).pushReplacementNamed('admin_home');
-        } else if (userRole == 'customer') {
+        } else if (userAccess == 'customer') {
           Navigator.of(context).pushReplacementNamed('home');
-        } else if (userRole == 'delivery') {
+        } else if (userAccess == 'delivery') {
           Navigator.of(context).pushReplacementNamed('delivery_home');
         } else {
           // Handle other roles or cases

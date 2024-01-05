@@ -4,10 +4,12 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
-import 'package:foodie/authentication/Validation.dart';
+
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore: library_prefixes
 import '../../Firestore/Models/User.dart' as UserModel;
+import '../validation.dart';
 
 class RegistrationBottomSheet extends StatefulWidget {
   const RegistrationBottomSheet({Key? key}) : super(key: key);
@@ -24,41 +26,18 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
   final TextEditingController password = TextEditingController();
   final TextEditingController fullName = TextEditingController();
   final TextEditingController address = TextEditingController();
-  final TextEditingController phone_number = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
 
   static Future<String> getCustomerAccessId() async {
     final List<dynamic> list =
         await FirestoreService.getAccessByType('customer');
     final String accessstr = list[0].type;
-    print('accessstr' + accessstr);
+    print('accessstr$accessstr');
     return accessstr;
   }
 
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   CollectionReference user = FirebaseFirestore.instance.collection('user');
-
-  /* Future<void> addUser() async {
-    // Get the current user from FirebaseAuth
-    User? currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser != null) {
-      // Use the UID as the document ID when adding a new user
-      return user
-          .doc(currentUser.uid)
-          .set({
-            'name': fullName.text,
-            'email': emailAddress.text,
-            'password': password.text,
-            'role': 'customer',
-          })
-          .then((value) => print("User Added with ID: ${currentUser.uid}"))
-          .catchError((error) => print("Failed to add user: $error"));
-    } else {
-      print("Current user is null");
-      // Handle the case where the current user is null (not logged in)
-      // You might want to show an error message or handle it based on your app's logic
-    }
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -106,12 +85,11 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                 child: TextFormField(
                   controller: address,
                   validator: (value) {
-                    return Validation.validateFullName(value) ??
-                        Validation.validateEmptyField('Full Name', value);
+                    return Validation.validateEmptyField('Address', value);
                   },
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
-                      Icons.person,
+                      Icons.add_location,
                       color: Colors.black,
                     ),
                     border: OutlineInputBorder(
@@ -126,14 +104,14 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: TextFormField(
-                  controller: phone_number,
+                  controller: phoneNumber,
                   validator: (value) {
-                    return Validation.validateFullName(value) ??
-                        Validation.validateEmptyField('Full Name', value);
+                    return Validation.validatePhoneNumber(value) ??
+                        Validation.validateEmptyField('Phone Number', value);
                   },
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
-                      Icons.person,
+                      Icons.phone,
                       color: Colors.black,
                     ),
                     border: OutlineInputBorder(
@@ -226,8 +204,9 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                           UserModel.User.serviceConstructor(
                               name: fullName.text,
                               email: emailAddress.text,
-                              phone_number: phone_number.text,
+                              phone_number: phoneNumber.text,
                               address: address.text,
+                              password: password.text,
                               access_id: await getCustomerAccessId()),
                           FirebaseAuth.instance.currentUser!.uid,
                         );
