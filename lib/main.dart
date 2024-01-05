@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ? Navigation()
+          ? RegisterPage()
           : Navigation() //page contains navigation to all the pages//
       ,
       routes: {
@@ -49,6 +49,8 @@ class _MyAppState extends State<MyApp> {
         'userprofile': (context) => const Profilepage(),
         'admin_home': (context) => const Adminpage(),
         'delivery_home': (context) => const DelivaryPage(),
+        'navigation': (context) => const Navigation(),
+        
       },
     );
   }

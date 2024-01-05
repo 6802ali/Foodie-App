@@ -27,22 +27,21 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void updateList(String value) {
-  setState(() {
-    // Check if the search value is not empty
-    if (value.isNotEmpty) {
-      // Filter the restaurants based on the search value
-      displayList = restaurants
-          .where((element) =>
-              element.restaurantName!
-                  .toLowerCase()
-                  .contains(value.toLowerCase()))
-          .toList();
-    } else {
-      // If search value is empty, clear the displayList
-      displayList.clear();
-    }
-  });
-}
+    setState(() {
+      // Check if the search value is not empty
+      if (value.isNotEmpty) {
+        // Filter the restaurants based on the search value
+        displayList = restaurants
+            .where((element) => element.restaurantName!
+                .toLowerCase()
+                .contains(value.toLowerCase()))
+            .toList();
+      } else {
+        // If search value is empty, clear the displayList
+        displayList.clear();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
                 },
               ),
             ),
-            Navtabs(),
+            //Navtabs(),
           ],
         ),
       ),

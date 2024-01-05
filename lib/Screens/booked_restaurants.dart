@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+
 import 'package:foodie/Restaurantswidget/booked_restaurants_widget/restaurant_widget.dart';
 
 class BookedRestaurants extends StatelessWidget {
