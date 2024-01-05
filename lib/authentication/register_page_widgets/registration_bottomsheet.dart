@@ -210,7 +210,8 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                               access_id: await getCustomerAccessId()),
                           FirebaseAuth.instance.currentUser!.uid,
                         );
-                        Navigator.of(context).pushReplacementNamed('home');
+                        Navigator.of(context)
+                            .pushReplacementNamed('navigation');
                       }
                     } on FirebaseAuthException catch (e) {
                       String errorMessage;

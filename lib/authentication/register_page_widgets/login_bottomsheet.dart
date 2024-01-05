@@ -76,7 +76,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
         if (userAccess == 'admin') {
           Navigator.of(context).pushReplacementNamed('admin_home');
         } else if (userAccess == 'customer') {
-          Navigator.of(context).pushReplacementNamed('home');
+          Navigator.of(context).pushReplacementNamed('navigation');
         } else if (userAccess == 'delivery') {
           Navigator.of(context).pushReplacementNamed('delivery_home');
         } else {

@@ -7,11 +7,12 @@ import 'HomeWidgets/MealSuggestionsText.dart';
 import 'HomeWidgets/RestaurantsSuggestions.dart';
 // import 'SearchWidgets/Search.dart';
 
-
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Column(
@@ -20,9 +21,9 @@ class Home extends StatelessWidget {
             child: SingleChildScrollView(
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 color: Colors.grey[200],
-                child: Column(
+                child: const Column(
                   children: [
                     OfferList(),
                     OffersListNav(),
