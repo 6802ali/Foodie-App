@@ -7,7 +7,6 @@ import 'HomeWidgets/MealSuggestionsText.dart';
 import 'HomeWidgets/RestaurantsSuggestions.dart';
 // import 'SearchWidgets/Search.dart';
 
-import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -31,7 +30,7 @@ class Home extends StatelessWidget {
                     MealSuggestionsList(),
                     RestaurantsSuggestionsText(),
                     RestaurantsSuggestionsList(),
-                    Navtabs(),
+                    RestaurantsSuggestionsList(),
                   ],
                 ),
               ),
@@ -41,5 +40,31 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+
+    // return SafeArea(
+    //   child: Scaffold(
+    //       body: Center(
+    //     child: SingleChildScrollView(
+    //       child: Container(
+    //         width: double.infinity,
+    //         padding: EdgeInsets.all(16.0),
+    //         color: Colors.grey[200],
+    //         child: Column(
+    //           children: [
+    //             OfferList(),
+    //             OffersListNav(),
+    //             MealSuggestionsText(),
+    //             MealSuggestionsList(),
+    //             RestaurantsSuggestionsText(),
+    //             RestaurantsSuggestionsList(),
+    //             RestaurantsSuggestionsList(),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   )
+    //       // ],
+    //       ),
+    // );
   }
 }

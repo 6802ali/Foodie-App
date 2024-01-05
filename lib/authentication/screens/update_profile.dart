@@ -14,7 +14,7 @@ class Updateprofile extends StatefulWidget {
 }
 
 class _UpdateprofileState extends State<Updateprofile> {
-  File profile_image = 'assets/profile.png' as File;
+  File profile_image = File('assets/profile.png');
 
   final picker = ImagePicker();
   Future _uploadImage() async {

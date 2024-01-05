@@ -7,8 +7,6 @@ import 'HomeWidgets/MealSuggestionsText.dart';
 import 'HomeWidgets/RestaurantsSuggestions.dart';
 // import 'SearchWidgets/Search.dart';
 
-import 'package:flutter/material.dart';
-
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class Home extends StatelessWidget {
                     MealSuggestionsList(),
                     RestaurantsSuggestionsText(),
                     RestaurantsSuggestionsList(),
-                    Navtabs(),
+                    // Navtabs(),
                   ],
                 ),
               ),
