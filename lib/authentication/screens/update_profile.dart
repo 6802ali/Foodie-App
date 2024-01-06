@@ -29,12 +29,7 @@ class _UpdateprofileState extends State<Updateprofile> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Profilepage(),
-            ),
-          ),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -148,7 +143,24 @@ class _UpdateprofileState extends State<Updateprofile> {
               ),
               const TextField(
                 decoration: InputDecoration(
-                  labelText: 'Change Password',
+                  labelText: 'address',
+                  labelStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
                   labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,

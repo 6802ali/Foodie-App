@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/Orderspage/cardbuilder.dart';
 import 'package:foodie/Orderspage/orderswidget.dart';
+
+// ignore: unnecessary_new
 
 class OrderDetailsPage extends StatelessWidget {
   @override
@@ -20,6 +23,7 @@ class OrderDetailsPage extends StatelessWidget {
             CardWidget(),
             DeliveryDetailsWidget(),
             OrderSummaryWidget(),
+            CancelButtonWidget(),
           ],
         ),
       ),
@@ -30,7 +34,7 @@ class OrderDetailsPage extends StatelessWidget {
 class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return OrdersWidget();
+    return Cardbuilder(); // need id of card here
   }
 }
 
@@ -43,6 +47,16 @@ class DeliveryDetailsWidget extends StatelessWidget {
           title: Text(
             "Delivery Details",
             style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Center(
+            child: Column(
+              children: [
+                Text("name: First Text"),
+                Text("street name: Second Text"),
+                Text("building: Third Text"),
+                // Add more Text widgets as needed
+              ],
+            ),
           ),
           trailing: Icon(Icons.location_on),
         ),
@@ -112,6 +126,54 @@ class OrderSummaryWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CancelButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ElevatedButton(
+        onPressed: () {
+          showCancelWarningDialog(context);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red, // Set the button color to red
+        ),
+        child: Text("Cancel Order"),
+      ),
+    );
+  }
+
+  void showCancelWarningDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Cancel Order"),
+          content: Text("Are you sure you want to cancel this order?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                // Close the dialog
+              },
+              child: Text("No"),
+            ),
+            TextButton(
+              onPressed: () {
+                // Implement cancellation logic here
+
+                Navigator.pop(context); //close dialog
+                Navigator.pop(context); // return to main page
+              },
+              child: Text("Yes"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

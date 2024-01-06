@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie/Orderspage/orders.dart';
 import 'package:foodie/authentication/screens/update_profile.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -24,6 +25,20 @@ class Profilepage extends StatelessWidget {
             bottom: Radius.circular(30),
           ),
         ),
+        actions: [
+          // Row with points system and star icon
+          Row(
+            children: [
+              const Icon(Icons.star, color: Colors.yellow),
+              const SizedBox(width: 8),
+              const Text(
+                'Points:100', // Replace with your points value
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(width: 16),
+            ],
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -113,7 +128,7 @@ class Profilepage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                title: const Text('Billing Information'),
+                title: const Text('Orders'),
                 trailing: Container(
                   width: 40,
                   height: 40,
@@ -126,7 +141,14 @@ class Profilepage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OrdersPage(),
+                    ),
+                  );
+                },
               ),
               const Divider(),
               ListTile(

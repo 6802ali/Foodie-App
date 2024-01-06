@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/Orderspage/orderdetails.dart';
 import 'package:foodie/Orderspage/orderswidget.dart';
 
 class OrdersPage extends StatefulWidget {
@@ -14,11 +15,26 @@ class _OrdersPageState extends State<OrdersPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("orders"),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: ListView.builder(
           itemCount: 5,
           itemBuilder: (context, index) {
-            return OrdersWidget();
+            return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderDetailsPage(),
+                    ),
+                  );
+                },
+                child: OrdersWidget());
           },
         ));
   }
