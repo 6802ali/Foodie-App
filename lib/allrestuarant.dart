@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/HomeWidgets/Navtabs.dart';
 import 'package:foodie/Models/RestaurantModel.dart';
+import 'package:foodie/Screens/Restaurantdetailswidgets/restaurantsdetails.dart';
 import 'package:foodie/firebase/Restaurant.dart';
 
 class allrestaurants extends StatefulWidget {
@@ -26,7 +27,7 @@ class _allrestaurantsState extends State<allrestaurants> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
-            print("error: " + snapshot.error.toString());
+            print("error ali: " + snapshot.error.toString());
             return Center(
               child: Text("Something went wrong" + snapshot.error.toString()),
             );
@@ -71,6 +72,11 @@ class _allrestaurantsState extends State<allrestaurants> {
 
     print("Image URL: ${restaurant.restaurant_img_link}");
   return Card(
+    child:InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantDetailsPage(restaurant: restaurant)));
+      },
+  
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -117,6 +123,7 @@ class _allrestaurantsState extends State<allrestaurants> {
         ),
       ],
     ),
+    )
   );
 }
 

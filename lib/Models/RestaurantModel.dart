@@ -1,4 +1,4 @@
-import 'menu.dart';
+import 'MenuModel.dart';
 
 //ignore: file_names
 class RestaurantModel {
@@ -30,7 +30,7 @@ class RestaurantModel {
       rating: json['rating'] ?? 0.0,
       restaurantName: json['restaurant_name'] ?? '',
       tables: json['tables'] ?? 0,
-      field: json['field'],
+      field: json['field'] ?? '',
       restaurant_img_link: json['restaurant_img_link'] ?? '',
     );
   }

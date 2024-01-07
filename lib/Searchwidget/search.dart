@@ -46,9 +46,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1f1545),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF1f1545),
+        backgroundColor: Colors.white,
         elevation: 0.0,
       ),
       body: Padding(
@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
             Text(
               "Search for a Restaurant !",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -68,6 +68,15 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 20.0,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.network('https://th.bing.com/th/id/R.14bfc1e64c9fde9eef5a191a65730764?rik=R8sLpCtLKnIzwg&riu=http%3a%2f%2fwww.vegos.com.au%2fwp-content%2fuploads%2f2020%2f03%2fCheeseburger3.jpg&ehk=trmGTC1sv5GG10G0BJJsEqc9BCakjHkpsHSDDXo4kBM%3d&risl=&pid=ImgRaw&r=0',height: 100,width: 100),
+                Image.network('https://th.bing.com/th/id/OIP.l86brv9QDLXwJQmCDTjBggHaGu?rs=1&pid=ImgDetMain',height: 100,width: 100),
+                Image.network('https://th.bing.com/th/id/OIP.eRSPH3Q4nCKcyxMBCz6abwHaHa?rs=1&pid=ImgDetMain',height: 100,width: 100),
+              ],
+            ),
+            SizedBox(height: 10),
             TextField(
               onChanged: ((value) => updateList(value)),
               style: TextStyle(color: Colors.white),
@@ -105,10 +114,10 @@ class _SearchPageState extends State<SearchPage> {
     return ListTile(
       contentPadding: EdgeInsets.all(8.0),
       title: Text(restaurant.restaurantName,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
       subtitle: Text(
         restaurant.field,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.grey),
       ),
       trailing: Text("${restaurant.rating}"),
     );
