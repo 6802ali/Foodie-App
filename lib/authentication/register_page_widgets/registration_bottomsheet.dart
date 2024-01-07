@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Firestore/Services/UserService.dart';
 
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -50,14 +51,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
           ),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: Icon(
-                  Icons.arrow_drop_down,
-                  size: 36,
-                  color: Colors.grey,
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: TextFormField(
@@ -69,7 +62,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.person,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -90,7 +82,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.add_location,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -112,7 +103,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.phone,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -135,7 +125,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.email,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -159,7 +148,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.lock,
-                        color: Colors.black,
                       ),
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -200,8 +188,9 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                           email: emailAddress.text,
                           password: password.text,
                         );
-                        await FirestoreService.addUserWithId(
-                          UserModel.User.serviceConstructor(
+                        UserService.addUser(
+                          UserModel.User(
+                              id: '',
                               name: fullName.text,
                               email: emailAddress.text,
                               phone_number: phoneNumber.text,

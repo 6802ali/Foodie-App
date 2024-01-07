@@ -29,7 +29,6 @@ class _CreateAccountState extends State<CreateAccount> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
               ),
-              backgroundColor: Colors.white,
               isScrollControlled: true,
               builder: (context) {
                 return const RegistrationBottomSheet();

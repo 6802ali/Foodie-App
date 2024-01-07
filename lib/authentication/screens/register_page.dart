@@ -7,12 +7,8 @@ class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Food Media"),
-        backgroundColor: const Color(0xFF32B768),
-      ),
-      body: const SingleChildScrollView(
+    return const Scaffold(
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [

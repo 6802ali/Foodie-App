@@ -4,7 +4,7 @@ class Meal {
   final String id;
   final String description;
   final String name;
-  final String price;
+  final int price;
   final String restaurant_id;
 
   Meal(
@@ -42,17 +42,12 @@ class Meal {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required String name,
-    required String description,
-    required String price,
-    required String restaurant_id,
-  }) {
+  static Map<String, dynamic> serviceConstructor(Meal meal) {
     return {
-      'name': name,
-      'description': description,
-      'price': price,
-      'restaurant_id': restaurant_id,
+      'name': meal.name,
+      'description': meal.description,
+      'price': meal.price,
+      'restaurant_id': meal.restaurant_id,
     };
   }
 }

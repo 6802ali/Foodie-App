@@ -8,11 +8,9 @@ import 'HomeWidgets/RestaurantsSuggestions.dart';
 // import 'SearchWidgets/Search.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
       height: double.infinity,
       child: Column(
@@ -21,9 +19,9 @@ class Home extends StatelessWidget {
             child: SingleChildScrollView(
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 color: Colors.grey[200],
-                child: const Column(
+                child: Column(
                   children: [
                     OfferList(),
                     OffersListNav(),
@@ -31,7 +29,7 @@ class Home extends StatelessWidget {
                     MealSuggestionsList(),
                     RestaurantsSuggestionsText(),
                     RestaurantsSuggestionsList(),
-                    RestaurantsSuggestionsList(),
+                    // Navtabs(),
                   ],
                 ),
               ),
@@ -41,31 +39,5 @@ class Home extends StatelessWidget {
         ],
       ),
     );
-
-    // return SafeArea(
-    //   child: Scaffold(
-    //       body: Center(
-    //     child: SingleChildScrollView(
-    //       child: Container(
-    //         width: double.infinity,
-    //         padding: EdgeInsets.all(16.0),
-    //         color: Colors.grey[200],
-    //         child: Column(
-    //           children: [
-    //             OfferList(),
-    //             OffersListNav(),
-    //             MealSuggestionsText(),
-    //             MealSuggestionsList(),
-    //             RestaurantsSuggestionsText(),
-    //             RestaurantsSuggestionsList(),
-    //             RestaurantsSuggestionsList(),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   )
-    //       // ],
-    //       ),
-    // );
   }
 }

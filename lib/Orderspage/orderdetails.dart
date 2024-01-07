@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/Models/Meal.dart';
 import 'package:foodie/Orderspage/cardbuilder.dart';
 
-
 // ignore: unnecessary_new
 // var username;
 // var address;
@@ -98,7 +97,7 @@ class OrderSummaryWidget extends StatelessWidget {
     double total = 0.0;
 
     for (var entry in items.entries) {
-      total += (double.parse(entry.key.price) * entry.value);
+      total += (entry.key.price * entry.value);
     }
 
     return Column(
@@ -119,8 +118,7 @@ class OrderSummaryWidget extends StatelessWidget {
               var currentitem = items.entries.toList()[index];
               Meal item = currentitem.key;
               int quantity = currentitem.value;
-              double itemTotal =
-                  (double.parse(item.price) * quantity) as double;
+              double itemTotal = (item.price * quantity) as double;
               return ListTile(
                 leading: Text(
                   "${quantity}X",

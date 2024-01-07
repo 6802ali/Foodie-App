@@ -42,17 +42,12 @@ class Review {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required String rating,
-    required String description,
-    required String restaurant_id,
-    required String user_id,
-  }) {
+  static Map<String, dynamic> serviceConstructor(Review review) {
     return {
-      'rating': rating,
-      'description': description,
-      'restaurant_id': restaurant_id,
-      'user_id': user_id,
+      'rating': review.rating,
+      'description': review.description,
+      'restaurant_id': review.restaurant_id,
+      'user_id': review.user_id,
     };
   }
 }

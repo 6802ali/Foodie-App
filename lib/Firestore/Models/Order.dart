@@ -52,23 +52,15 @@ class Order {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required String address,
-    required String status,
-    required List<String> meals_id,
-    required String admin_user_id,
-    required String consumer_user_id,
-    required String delivery_user_id,
-    required String restaurant_id,
-  }) {
+  static Map<String, dynamic> serviceConstructor(Order order) {
     return {
-      'address': address,
-      'status': status,
-      'meals_id': meals_id,
-      'admin_user_id': admin_user_id,
-      'consumer_user_id': consumer_user_id,
-      'delivery_user_id': delivery_user_id,
-      'restaurant_id': restaurant_id,
+      'address': order.address,
+      'status': order.status,
+      'meals_id': order.meals_id,
+      'admin_user_id': order.admin_user_id,
+      'consumer_user_id': order.consumer_user_id,
+      'delivery_user_id': order.delivery_user_id,
+      'restaurant_id': order.restaurant_id,
     };
   }
 }

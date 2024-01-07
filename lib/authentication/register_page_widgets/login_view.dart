@@ -14,14 +14,6 @@ class _LoginState extends State<Login> {
     return Column(
       children: [
         TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: const Color(0xFF10B981),
-            backgroundColor: const Color(0xFFD1FAE5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            minimumSize: const Size(256, 49),
-          ),
           child: const Text("Login"),
           onPressed: () {
             showModalBottomSheet(
@@ -29,7 +21,6 @@ class _LoginState extends State<Login> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
               ),
-              backgroundColor: Colors.white,
               isScrollControlled: true,
               builder: (context) {
                 return const LoginBottomSheet();

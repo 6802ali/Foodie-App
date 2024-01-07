@@ -48,21 +48,14 @@ class User {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required String name,
-    required String email,
-    required String phone_number,
-    required String address,
-    required String access_id,
-    required String password,
-  }) {
+  static Map<String, dynamic> serviceConstructor(User user) {
     return {
-      'name': name,
-      'email': email,
-      'phone_number': phone_number,
-      'address': address,
-      'access_id': access_id,
-      'password': password,
+      'name': user.name,
+      'email': user.email,
+      'phone_number': user.phone_number,
+      'address': user.address,
+      'access_id': user.access_id,
+      'password': user.password,
     };
   }
 }

@@ -44,10 +44,11 @@ dependencies:
   get: ^4.6.6
   firebase_admin: ^0.2.0
   image_picker: ^1.0.5
-  riverpod: ^2.4.9
+  flutter_riverpod: ^2.4.9
   google_fonts: ^4.0.4
   firebase_database: ^10.3.8
   firebase_storage: ^11.5.6
+  flutter_chat_bubble: ^2.0.2 
 
 dev_dependencies:
   flutter_test:
