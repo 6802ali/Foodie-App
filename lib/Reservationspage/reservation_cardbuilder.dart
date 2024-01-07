@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 
-class OrdersWidget extends StatelessWidget {
+class ReservationCardBuilder extends StatelessWidget {
+  final Map<String, dynamic> reservation;
+
+  ReservationCardBuilder({required this.reservation});
+
   @override
   Widget build(BuildContext context) {
+    var imagepath = reservation['imagepath'];
+    var restaurantName = reservation['restaurantname'];
+    var time = reservation['time'];
+    var date = reservation['date'];
+    var guests = reservation['guests'];
+
     return Card(
       elevation: 5,
+      color: Colors.white,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -12,70 +23,50 @@ class OrdersWidget extends StatelessWidget {
             height: 80,
             width: 80,
             margin: const EdgeInsets.symmetric(horizontal: 6),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image: AssetImage(
-                      'assets/restaurant1.jpg'), // Replace with your image path
-                  fit: BoxFit.cover),
+                image: AssetImage(imagepath),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Picture leading in the card
-
-              SizedBox(height: 10), // Adjust spacing
-
-              // Title
+              SizedBox(height: 10),
               Text(
-                'Arrabiata',
+                restaurantName,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
-
-              // Row with Status, Arrow Icon
-
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Successful',
+                    'Time: $time',
                     style: TextStyle(
-                      color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // Adjust spacing
-
-                  // Arrow Icon
-                  // Icon(Icons.arrow_forward),
-                  // Status Text
                 ],
               ),
-
-              // Adjust spacing
-
-              // Date and Order ID
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Date
                   Text(
-                    'Jan 1, 2023',
+                    date,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(width: 10), // Adjust spacing
-
-                  // Order ID
+                  SizedBox(width: 10),
                   Text(
-                    'Order ID: 12345',
+                    'Guests: $guests',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey,

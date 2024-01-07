@@ -2,6 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie/Orderspage/orders.dart';
+import 'package:foodie/Reservationspage/reservationpage.dart';
 import 'package:foodie/authentication/screens/update_profile.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -24,6 +26,20 @@ class Profilepage extends StatelessWidget {
             bottom: Radius.circular(30),
           ),
         ),
+        actions: [
+          // Row with points system and star icon
+          Row(
+            children: [
+              const Icon(Icons.star, color: Colors.yellow),
+              const SizedBox(width: 8),
+              const Text(
+                'Points:100', // points variable
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(width: 16),
+            ],
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -36,7 +52,7 @@ class Profilepage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image.asset(
-                    'assets/profile.png',
+                    'assets/profile.png', // image path variable
                   ),
                 ),
               ),
@@ -44,7 +60,7 @@ class Profilepage extends StatelessWidget {
                 height: 10,
               ),
               const Text(
-                'Mohammad',
+                'Mohammad', // username variable
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -53,7 +69,7 @@ class Profilepage extends StatelessWidget {
                 height: 10,
               ),
               const Text(
-                'Mohmmed@gmail.com',
+                'Mohmmed@gmail.com', //email variable
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -109,11 +125,11 @@ class Profilepage extends StatelessWidget {
                     color: Colors.grey[300],
                   ),
                   child: const Icon(
-                    Icons.wallet_outlined,
+                    Icons.fastfood, //icon orders
                     color: Colors.black,
                   ),
                 ),
-                title: const Text('Billing Information'),
+                title: const Text('Orders'),
                 trailing: Container(
                   width: 40,
                   height: 40,
@@ -126,7 +142,49 @@ class Profilepage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OrdersPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.grey[300],
+                  ),
+                  child: const Icon(
+                    Icons.event, //icon reservation
+                    color: Colors.black,
+                  ),
+                ),
+                title: const Text('Reservations'),
+                trailing: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.grey[300],
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReservationsPage(),
+                    ),
+                  );
+                },
               ),
               const Divider(),
               ListTile(
