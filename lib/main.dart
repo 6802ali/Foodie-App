@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Orderspage/orderdetails.dart';
 import 'package:foodie/Orderspage/orders.dart';
-import 'package:foodie/Orderspage/orderswidget.dart';
-import 'package:foodie/Screens/booked_restaurants.dart';
+import 'package:foodie/Restaurantswidget/restaurantpage.dart';
+
 import 'package:foodie/navigation.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,8 +38,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ? const RegisterPage()
-          : const Navigation() //page contains navigation to all the pages//
+          ? Navigation()
+          :  Navigation()//page contains navigation to all the pages//
       ,
       routes: {
         'home': (context) => Home(),
