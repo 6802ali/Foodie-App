@@ -38,8 +38,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ? Navigation()
-          :  Navigation()//page contains navigation to all the pages//
+          ? const RegisterPage()
+          : const Navigation() //page contains navigation to all the pages//
       ,
       routes: {
         'home': (context) => Home(),
