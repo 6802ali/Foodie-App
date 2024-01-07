@@ -5,11 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:foodie/Orderspage/orders.dart';
 import 'package:foodie/Reservationspage/reservationpage.dart';
 import 'package:foodie/authentication/screens/update_profile.dart';
+import 'package:foodie/main.dart';
+import 'package:foodie/theme/theme.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class Profilepage extends StatelessWidget {
+class Profilepage extends StatefulWidget {
   const Profilepage({Key? key}) : super(key: key);
 
+  @override
+  State<Profilepage> createState() => _ProfilepageState();
+}
+
+class _ProfilepageState extends State<Profilepage> {
+  bool isDarkMode = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,6 +194,35 @@ class Profilepage extends StatelessWidget {
                     ),
                   );
                 },
+              ),
+              ListTile(
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.grey[300],
+                  ),
+                  child: const Icon(
+                    Icons.nightlight_round,
+                    color: Colors.black,
+                  ),
+                ),
+                title: const Text('Dark Mode'),
+                trailing: Switch(
+                  value: isDarkMode,
+                  onChanged: (value) {
+                    setState(() {
+                      isDarkMode = value;
+                      // theme:
+                      // _toggleDarkMode(isDarkMode);
+                      // return theme: _toggleDarkMode(isDarkMode);
+                      Get.changeTheme(isDarkMode
+                          ? TAppTheme.darkTheme
+                          : TAppTheme.lightTheme);
+                    });
+                  },
+                ),
               ),
               const Divider(),
               ListTile(
