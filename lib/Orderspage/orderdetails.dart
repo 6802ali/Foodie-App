@@ -22,13 +22,15 @@ class OrderDetailsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("Order Details"),
         ),
-        body: Column(
-          children: [
-            CardWidget(order: order),
-            DeliveryDetailsWidget(order: order),
-            OrderSummaryWidget(order: order),
-            CancelButtonWidget(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              CardWidget(order: order),
+              DeliveryDetailsWidget(order: order),
+              OrderSummaryWidget(order: order),
+              CancelButtonWidget(),
+            ],
+          ),
         ),
       ),
     );
