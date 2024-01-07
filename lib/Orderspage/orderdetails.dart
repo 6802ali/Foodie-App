@@ -21,12 +21,6 @@ class OrderDetailsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Order Details"),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
         body: Column(
           children: [
@@ -94,7 +88,7 @@ class OrderSummaryWidget extends StatelessWidget {
     Map<Meal, int> items = order['meals'];
 
     // Calculate total cost
-    double total = 0.0;
+    int total = 0;
 
     for (var entry in items.entries) {
       total += (entry.key.price * entry.value);
@@ -118,7 +112,7 @@ class OrderSummaryWidget extends StatelessWidget {
               var currentitem = items.entries.toList()[index];
               Meal item = currentitem.key;
               int quantity = currentitem.value;
-              double itemTotal = (item.price * quantity) as double;
+              int itemTotal = (item.price * quantity) as int;
               return ListTile(
                 leading: Text(
                   "${quantity}X",
@@ -150,7 +144,9 @@ class CancelButtonWidget extends StatelessWidget {
           showCancelWarningDialog(context);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red, // Set the button color to red
+          backgroundColor: Colors.red,
+          foregroundColor: Theme.of(context).cardColor,
+          // Set the button color to red
         ),
         child: Text("Cancel Order"),
       ),

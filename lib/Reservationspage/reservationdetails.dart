@@ -10,6 +10,15 @@ class ReservationDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Reservation Details"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.black // Light mode
+              : Colors.white, // Dark mode
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -91,6 +100,7 @@ class CancelButtonWidget extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
+          foregroundColor: Theme.of(context).cardColor,
         ),
         child: Text("Cancel Reservation"),
       ),

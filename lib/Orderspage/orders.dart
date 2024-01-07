@@ -59,7 +59,7 @@ List<Map<String, dynamic>> cardItems = [
   {
     'imagepath': 'assets/restaurant3.jpg',
     'restaurantname': 'Margherita Pizza',
-    'status': 'Delivered',
+    'status': 'cancelled',
     'date': 'Mar 10, 2023',
     'order_id': '11122',
     'username': 'bob',
@@ -125,7 +125,7 @@ List<Map<String, dynamic>> cardItems = [
   {
     'imagepath': 'assets/restaurant6.jpg',
     'restaurantname': 'Vegetarian Salad',
-    'status': 'Delivered',
+    'status': 'cancelled',
     'date': 'Jun 25, 2023',
     'order_id': '77889',
     'username': 'emily',

@@ -15,7 +15,8 @@ class Cardbuilder extends StatelessWidget {
 
     return Card(
       elevation: 5,
-      color: Colors.white,
+      //color:
+        //  Theme.of(context).cardColor, // Uses card color from the current theme
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -49,7 +50,7 @@ class Cardbuilder extends StatelessWidget {
                   Text(
                     status, // Use order data
                     style: TextStyle(
-                      color: Colors.green,
+                      color: getStatusColor(status),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -62,7 +63,7 @@ class Cardbuilder extends StatelessWidget {
                     date, // Use order data
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                   //   color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                   ),
                   SizedBox(width: 10),
@@ -70,7 +71,7 @@ class Cardbuilder extends StatelessWidget {
                     'Order ID: $order_id', // Use order data
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                    //  color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                   ),
                 ],
@@ -80,5 +81,19 @@ class Cardbuilder extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+// Function to map status to color
+Color getStatusColor(String status) {
+  switch (status.toLowerCase()) {
+    case 'successful':
+      return Colors.green;
+    case 'pending':
+      return Colors.orange;
+    case 'cancelled':
+      return Colors.red;
+    default:
+      return Colors.black; // Default color if status is not recognized
   }
 }

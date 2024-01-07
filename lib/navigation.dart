@@ -30,7 +30,8 @@ class _NavigationState extends State<Navigation> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
+          //bacground is auto adjusted by theme
           selectedItemColor: Colors.green,
           unselectedItemColor: Colors.grey,
           currentIndex: _selectedIndex,
