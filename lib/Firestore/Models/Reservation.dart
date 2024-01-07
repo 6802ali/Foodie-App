@@ -40,15 +40,11 @@ class Reservation {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required DateTime timestamp,
-    required String user_id,
-    required String restaurant_id,
-  }) {
+  static Map<String, dynamic> serviceConstructor(Reservation reservation) {
     return {
-      'timestamp': timestamp,
-      'user_id': user_id,
-      'restaurant_id': restaurant_id,
+      'timestamp': reservation.timestamp,
+      'user_id': reservation.user_id,
+      'restaurant_id': reservation.restaurant_id,
     };
   }
 }

@@ -6,24 +6,15 @@ enum Collections { restaurant, user, review, reservation, order, meal, access }
 class FirestoreService {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  static Future<List<dynamic>> getAll(Collections colEnum) async {
+  static Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAll(
+      Collections colEnum) async {
     final String colName = colEnum.name;
     final col = firestore.collection(colName);
     final QuerySnapshot<Map<String, dynamic>> colQuery = await col.get();
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> colDocs =
         colQuery.docs;
-    final result = Utilities.getAllModels(colEnum, colDocs);
 
-    try {
-      print('FirestoreService.getAll:' + colName);
-      for (dynamic document in result) {
-        print(document);
-      }
-    } catch (error) {
-      print('Error during FirestoreService.getAll: $error');
-    }
-
-    return result;
+    return colDocs;
   }
 
   static Future<DocumentSnapshot<Map<String, dynamic>>> getDocumentById(
@@ -33,16 +24,8 @@ class FirestoreService {
         firestore.collection(colName).doc(documentId);
     DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
         await documentReference.get();
-    final result = Utilities.getModel(colEnum, documentSnapshot);
 
-    try {
-      print('FirestoreService.getDocumentById:' + documentId);
-      print(result);
-    } catch (error) {
-      print('Error during FirestoreService.getAll: $error');
-    }
-
-    return result;
+    return documentSnapshot;
   }
 
   static Future<List<DocumentSnapshot<Map<String, dynamic>>>> getDocumentsByIds(
@@ -63,15 +46,12 @@ class FirestoreService {
     final String colName = colEnum.name;
     final col = firestore.collection(colName);
 
-    if (newData.containsKey('name')) {
-      newData['nameKeywords'] = Utilities.keywordsGenerator(newData['name']);
-    }
     await col.add(newData);
   }
 
-  static Future<void> addUserWithId(
-      Map<String, dynamic> newData, String id) async {
-    final String colName = 'user';
+  static Future<void> addDocWithId(
+      Collections colEnum, Map<String, dynamic> newData, String id) async {
+    final String colName = colEnum.name;
     final col = firestore.collection(colName);
 
     await col.doc(id).set(newData);
@@ -81,11 +61,6 @@ class FirestoreService {
       Map<String, dynamic> updatedData) async {
     final String colName = colEnum.name;
     final col = firestore.collection(colName);
-
-    if (updatedData.containsKey('name')) {
-      updatedData['nameKeywords'] =
-          Utilities.keywordsGenerator(updatedData['name']);
-    }
 
     await col.doc(docId).update(updatedData);
   }
@@ -111,18 +86,7 @@ class FirestoreService {
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> colDocs =
         colQuery.docs;
 
-    final result = Utilities.getAllModels(colEnum, colDocs);
-
-    try {
-      print('FirestoreService.getAllBySearchTerm ($colName): ' + searchTerm);
-      for (dynamic document in result) {
-        print(document);
-      }
-    } catch (error) {
-      print('Error during FirestoreService.getAllBySearchTerm: $error');
-    }
-
-    return result;
+    return colDocs;
   }
 
   static Future<List<dynamic>> getAccessByType(
@@ -137,17 +101,6 @@ class FirestoreService {
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> colDocs =
         colQuery.docs;
 
-    final result = Utilities.getAllModels(Collections.access, colDocs);
-
-    try {
-      print('FirestoreService.getAccessByType ($colName): ' + type);
-      for (dynamic document in result) {
-        print(document);
-      }
-    } catch (error) {
-      print('Error during FirestoreService.getAllBySearchTerm: $error');
-    }
-
-    return result;
+    return colDocs;
   }
 }

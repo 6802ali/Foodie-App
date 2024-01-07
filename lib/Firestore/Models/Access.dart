@@ -28,11 +28,9 @@ class Access {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required String type,
-  }) {
+  static Map<String, dynamic> serviceConstructor(Access access) {
     return {
-      'type': type,
+      'type': access.type,
     };
   }
 }

@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Firestore/Services/UserService.dart';
 
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -187,8 +188,9 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                           email: emailAddress.text,
                           password: password.text,
                         );
-                        await FirestoreService.addUserWithId(
-                          UserModel.User.serviceConstructor(
+                        UserService.addUser(
+                          UserModel.User(
+                              id: '',
                               name: fullName.text,
                               email: emailAddress.text,
                               phone_number: phoneNumber.text,
