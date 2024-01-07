@@ -72,7 +72,8 @@ class FirestoreService {
     await col.doc(docId).delete();
   }
 
-  static Future<List<dynamic>> getAllByNameSearch(
+  static Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+      getAllByNameSearch(
     Collections colEnum,
     String searchTerm,
   ) async {

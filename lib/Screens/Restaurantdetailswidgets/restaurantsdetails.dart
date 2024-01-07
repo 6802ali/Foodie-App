@@ -1,11 +1,14 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie/Firestore/Models/Meal.dart';
 import 'package:foodie/Firestore/Models/Restaurant.dart';
+import 'package:foodie/Firestore/Services/MealService.dart';
 import 'package:foodie/Models/MenuModel.dart';
 import 'package:foodie/Models/RestaurantModel.dart';
 import 'package:foodie/firebase/Restaurant.dart';
 
 class RestaurantDetailsPage extends StatefulWidget {
-  final RestaurantModel restaurant;
+  final Restaurant restaurant;
 
   RestaurantDetailsPage({required this.restaurant});
 
@@ -14,16 +17,40 @@ class RestaurantDetailsPage extends StatefulWidget {
 }
 
 class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
-  List<MenuModel> menu = [];
+  List<Meal> meals = [];
   bool showMenu = false;
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getMeals();
   }
 
-  Future<void> getData() async {
+  getMeals() async {
+    meals = await MealService.getAllByIds(widget.restaurant.meals_id);
+
+    print(
+        '---------------------------------------------------------------------------------------------------------------');
+    print('meals');
+    print(meals);
+    print(meals.length);
+    print(
+        '---------------------------------------------------------------------------------------------------------------');
+  }
+
+  Future<String> getImage() async {
+    final FirebaseStorage storage = FirebaseStorage.instance;
+    final String restaurantImage =
+        'gs://project-b2728.appspot.com/restaurants/' +
+            widget.restaurant.id +
+            '.png';
+
+    String image = await storage.refFromURL(restaurantImage).getDownloadURL();
+
+    return image;
+  }
+
+  /* Future<void> getData() async {
     try {
       List<MenuModel> fetchedMenu = await FireRestaurant.getRestaurantMenu(widget.restaurant.id);
       setState(() {
@@ -33,22 +60,36 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
     } catch (e) {
       print('Error fetching menu: $e');
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.restaurant.restaurantName),
+        title: Text(widget.restaurant.name),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              Uri.encodeFull(widget.restaurant.restaurant_img_link.trim()),
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
+            FutureBuilder(
+              future: getImage(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Image.network(
+                    snapshot.data.toString(),
+                    width: MediaQuery.of(context)
+                        .size
+                        .width, // Set the width to full screen width
+                    fit: BoxFit.cover, // Adjust the BoxFit as needed
+                  );
+                } else if (snapshot.hasError) {
+                  // Handle error
+                  return Text('Error loading image');
+                } else {
+                  // Return a loading indicator or placeholder
+                  return CircularProgressIndicator();
+                }
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -56,11 +97,11 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.restaurant.restaurantName,
+                    widget.restaurant.name,
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    widget.restaurant.field,
+                    widget.restaurant.location,
                     style: TextStyle(fontSize: 18),
                   ),
                   Row(
@@ -92,7 +133,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
               ),
             ),
             // Display the menu or meals based on the button press
-            if (showMenu && menu.isNotEmpty) buildMenu(),
+            if (showMenu && meals.isNotEmpty) buildMenu(),
           ],
         ),
       ),
@@ -107,33 +148,30 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
         children: [
           SizedBox(height: 10),
           // Display the meals as cards
-          buildMealList(menu),
+          buildMealList(meals),
         ],
       ),
     );
   }
 
-  Widget buildMealList(List<MenuModel> menu) {
+  Widget buildMealList(List<Meal> meals) {
     return Container(
-      height: 200, // Set a proper height for the container
-      child: ListView.builder(
-        itemCount: menu.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: Column(
-              children: [
-                for (var meal in menu[index].meals)
-                  ListTile(
-                    title: Text(meal.mealName ?? ''),
-                    subtitle: Text(meal.mealDescription ?? ''),
-                    trailing: Text('\$${meal.mealPrice ?? ''}'),
-                  ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+        height: 200, // Set a proper height for the container
+        child: ListView.builder(
+            itemCount: meals.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Card(
+                    child: ListTile(
+                      title: Text(meals[index].name ?? ''),
+                      subtitle: Text(meals[index].description ?? ''),
+                      trailing: Text('\$${meals[index].price ?? ''}'),
+                    ),
+                  )
+                ],
+              );
+            }));
   }
 }
 

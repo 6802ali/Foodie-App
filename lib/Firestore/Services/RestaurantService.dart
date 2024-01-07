@@ -11,6 +11,16 @@ class RestaurantService {
 
     return allRestaurantModels;
   }
+  
+  static Future<List<Restaurant>> getAllByNameSearch(String searchTerm) async {
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> allRestaurantDocs =
+        await FirestoreService.getAllByNameSearch(Collections.restaurant, searchTerm);
+    final List<Restaurant> allRestaurantModels =
+        Restaurant.serviceDocumentListConvertor(allRestaurantDocs);
+
+    return allRestaurantModels;
+  }
+
 
   static Future<Restaurant> getRestaurantById(
     String documentId,

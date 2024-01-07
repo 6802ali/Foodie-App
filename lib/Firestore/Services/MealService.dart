@@ -23,7 +23,7 @@ class MealService {
   }
 
   static Future<List<Meal>> getAllByIds(
-    List<String> documentIds,
+    List<dynamic> documentIds,
   ) async {
     List<Meal> documentsList = [];
 
