@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Cardbuilder extends StatelessWidget {
-  
+  final Map<String, dynamic> order;
+
+  Cardbuilder({required this.order});
+
   @override
   Widget build(BuildContext context) {
-   
+    var imagepath = order['imagepath'];
+    var restaurant_name = order['restaurantname'];
+    var status = order['status'];
+    var date = order['date'];
+    var order_id = order['order_id'];
+
     return Card(
       elevation: 5,
       color: Colors.white,
@@ -15,70 +23,51 @@ class Cardbuilder extends StatelessWidget {
             height: 80,
             width: 80,
             margin: const EdgeInsets.symmetric(horizontal: 6),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image: AssetImage(
-                      'assets/restaurant1.jpg'), // Replace with your image path
-                  fit: BoxFit.cover),
+                image: AssetImage(imagepath), // Use order data
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Picture leading in the card
-
-              SizedBox(height: 10), // Adjust spacing
-
-              // Title
+              SizedBox(height: 10),
               Text(
-                'Arrabiata',
+                restaurant_name, // Use order data
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
-
-              // Row with Status, Arrow Icon
-
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Successful',
+                    status, // Use order data
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // Adjust spacing
-
-                  // Arrow Icon
-                  // Icon(Icons.arrow_forward),
-                  // Status Text
                 ],
               ),
-
-              // Adjust spacing
-
-              // Date and Order ID
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Date
                   Text(
-                    'Jan 1, 2023',
+                    date, // Use order data
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(width: 10), // Adjust spacing
-
-                  // Order ID
+                  SizedBox(width: 10),
                   Text(
-                    'Order ID: 12345',
+                    'Order ID: $order_id', // Use order data
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey,

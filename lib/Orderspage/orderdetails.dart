@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/Firestore/Models/Meal.dart';
 import 'package:foodie/Orderspage/cardbuilder.dart';
 import 'package:foodie/Orderspage/orderswidget.dart';
 
 // ignore: unnecessary_new
+// var username;
+// var address;
+// var phoneNumber;
+// late String quantity;
+// late String name;
+// late String price;
+
+// Add more items as needed
 
 class OrderDetailsPage extends StatelessWidget {
+  final Map<String, dynamic> order;
+  OrderDetailsPage({required this.order});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,9 +31,9 @@ class OrderDetailsPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            CardWidget(),
-            DeliveryDetailsWidget(),
-            OrderSummaryWidget(),
+            CardWidget(order: order),
+            DeliveryDetailsWidget(order: order),
+            OrderSummaryWidget(order: order),
             CancelButtonWidget(),
           ],
         ),
@@ -32,13 +43,20 @@ class OrderDetailsPage extends StatelessWidget {
 }
 
 class CardWidget extends StatelessWidget {
+  final Map<String, dynamic> order;
+
+  CardWidget({required this.order});
   @override
   Widget build(BuildContext context) {
-    return Cardbuilder(); // need id of card here
+    return Cardbuilder(order: order); // need id of card here
   }
 }
 
 class DeliveryDetailsWidget extends StatelessWidget {
+  final Map<String, dynamic> order;
+
+  DeliveryDetailsWidget({required this.order});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,9 +69,9 @@ class DeliveryDetailsWidget extends StatelessWidget {
           subtitle: Center(
             child: Column(
               children: [
-                Text("name: First Text"),
-                Text("street name: Second Text"),
-                Text("building: Third Text"),
+                Text("name: ${order['username']}"), // Use order data
+                Text("Address: ${order['address']}"), // Use order data
+                Text("phone number: ${order['phoneNumber']}"), // Use order data
                 // Add more Text widgets as needed
               ],
             ),
@@ -67,24 +85,20 @@ class DeliveryDetailsWidget extends StatelessWidget {
 }
 
 class OrderSummaryWidget extends StatelessWidget {
+  final Map<String, dynamic> order;
+
+  OrderSummaryWidget({required this.order});
+
   @override
   Widget build(BuildContext context) {
-    // Dummy list of items with quantity, name, and price
-    List<Map<String, dynamic>> items = [
-      {"quantity": 2, "name": "Item 1", "price": 20.00},
-      {"quantity": 3, "name": "Item 2", "price": 15.00},
-      {"quantity": 3, "name": "Item 3", "price": 25.00},
-      {"quantity": 3, "name": "Item 3", "price": 25.00},
-      {"quantity": 3, "name": "Item 3", "price": 25.00},
-      {"quantity": 3, "name": "Item 3", "price": 25.00},
-      {"quantity": 3, "name": "Item 3", "price": 25.00},
-      // Add more items as needed
-    ];
+    // Use order data instead of the dummy list
+    Map<Meal, int> items = order['meals'];
 
     // Calculate total cost
     double total = 0.0;
-    for (var item in items) {
-      total += item["price"] * item["quantity"];
+
+    for (var entry in items.entries) {
+      total += (double.parse(entry.key.price) * entry.value);
     }
 
     return Column(
@@ -102,13 +116,16 @@ class OrderSummaryWidget extends StatelessWidget {
             physics: ScrollPhysics(),
             itemCount: items.length,
             itemBuilder: (context, index) {
-              var item = items[index];
-              var itemTotal = item["price"] * item["quantity"];
+              var currentitem = items.entries.toList()[index];
+              Meal item = currentitem.key;
+              int quantity = currentitem.value;
+              double itemTotal =
+                  (double.parse(item.price) * quantity) as double;
               return ListTile(
                 leading: Text(
-                  "${item['quantity']}X",
+                  "${quantity}X",
                 ),
-                title: Text("${item['name']}"),
+                title: Text("${item.name}"),
                 trailing: Text("\$${itemTotal.toStringAsFixed(2)}"),
               );
             },
@@ -118,11 +135,6 @@ class OrderSummaryWidget extends StatelessWidget {
           title: Text(
             "Total: \$${total.toStringAsFixed(2)}",
             style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        ListTile(
-          title: Text(
-            "Payment Method: Credit Card",
           ),
         ),
       ],
