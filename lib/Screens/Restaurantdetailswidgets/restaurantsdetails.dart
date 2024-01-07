@@ -5,6 +5,7 @@ import 'package:foodie/Firestore/Models/Restaurant.dart';
 import 'package:foodie/Firestore/Services/MealService.dart';
 import 'package:foodie/Models/MenuModel.dart';
 import 'package:foodie/Models/RestaurantModel.dart';
+import 'package:foodie/Screens/mealdetailswidgets/mealDetails.dart';
 import 'package:foodie/firebase/Restaurant.dart';
 
 class RestaurantDetailsPage extends StatefulWidget {
@@ -77,10 +78,9 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Image.network(
                     snapshot.data.toString(),
-                    width: MediaQuery.of(context)
-                        .size
-                        .width, // Set the width to full screen width
-                    fit: BoxFit.cover, // Adjust the BoxFit as needed
+                    width: MediaQuery.of(context).size.width,
+                    height: 150, // Set the desired height
+                    fit: BoxFit.cover,
                   );
                 } else if (snapshot.hasError) {
                   // Handle error
@@ -156,7 +156,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
 
   Widget buildMealList(List<Meal> meals) {
     return Container(
-        height: 200, // Set a proper height for the container
+        height: 480, // Set a proper height for the container
         child: ListView.builder(
             itemCount: meals.length,
             itemBuilder: (context, index) {
@@ -164,6 +164,13 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                 children: [
                   Card(
                     child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MealDetails(meal: meals[index])));
+                      },
                       title: Text(meals[index].name ?? ''),
                       subtitle: Text(meals[index].description ?? ''),
                       trailing: Text('\$${meals[index].price ?? ''}'),
