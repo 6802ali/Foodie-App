@@ -50,14 +50,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
           ),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: Icon(
-                  Icons.arrow_drop_down,
-                  size: 36,
-                  color: Colors.grey,
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: TextFormField(
@@ -69,7 +61,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.person,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -90,7 +81,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.add_location,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -112,7 +102,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.phone,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -135,7 +124,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.email,
-                      color: Colors.black,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -159,7 +147,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.lock,
-                        color: Colors.black,
                       ),
                       suffixIcon: IconButton(
                         onPressed: () {

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/authentication/register_page_widgets/sign_in_with_google.dart';
+import 'package:foodie/authentication/validation.dart';
 import 'package:get/get.dart';
 
 class LoginBottomSheet extends StatefulWidget {
@@ -17,7 +18,7 @@ class LoginBottomSheet extends StatefulWidget {
 class _LoginBottomSheetState extends State<LoginBottomSheet> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final hidePassword = true.obs;
 
   // Helper function to show an error message
@@ -116,126 +117,129 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
+          key: loginFormKey,
           child: Container(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: Icon(
-                Icons.arrow_drop_down,
-                size: 36,
-                color: Colors.grey,
-              ),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: TextFormField(
-                controller: email,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: email,
+                    validator: (value) {
+                      return Validation.validateEmptyField(
+                              'Email Address', value) ??
+                          Validation.validateEmail(value);
+                    },
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.email,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      labelText: 'Enter Email Address',
                     ),
                   ),
-                  labelText: 'Enter Email Address',
                 ),
-              ),
-            ),
-            Obx(
-              () => Padding(
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  controller: password,
-                  obscureText: hidePassword.value,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        hidePassword.value = !hidePassword.value;
+                Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: TextFormField(
+                      controller: password,
+                      validator: (value) {
+                        return Validation.validateEmptyField(
+                                'Password', value) ??
+                            Validation.validatePassword(value);
                       },
-                      icon: Icon(
-                        hidePassword.value
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                      obscureText: hidePassword.value,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            hidePassword.value = !hidePassword.value;
+                          },
+                          icon: Icon(
+                            hidePassword.value
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(50),
+                          ),
+                        ),
+                        labelText: 'Enter Password',
                       ),
                     ),
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    if (email.text.isEmpty) {
+                      showErrorMessage('Please enter your email address');
+                      return;
+                    }
+                    try {
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: email.text);
+                      showSuccessMessage(
+                          'Password reset link has been sent to your email address');
+                    } catch (e) {
+                      showErrorMessage('Failed to send reset email');
+                      return;
+                    }
+                  },
+                  mouseCursor: SystemMouseCursors.click,
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Text("Forgot Password ?"),
+                        ],
                       ),
                     ),
-                    labelText: 'Enter Password',
                   ),
                 ),
-              ),
-            ),
-            InkWell(
-              onTap: () async {
-                if (email.text.isEmpty) {
-                  showErrorMessage('Please enter your email address');
-                  return;
-                }
-                try {
-                  await FirebaseAuth.instance
-                      .sendPasswordResetEmail(email: email.text);
-                  showSuccessMessage(
-                      'Password reset link has been sent to your email address');
-                } catch (e) {
-                  showErrorMessage('Failed to send reset email');
-                  return;
-                }
-              },
-              mouseCursor: SystemMouseCursors.click,
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Column(
-                    children: [
-                      Text("Forgot Password ?"),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF32B768),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      minimumSize: const Size(200, 49),
+                    ),
+                    onPressed: () async {
+                      if (loginFormKey.currentState!.validate()) {
+                        try {
+                          loginUserAndNavigate();
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                      }
+                    },
+                    child: const Text('Login'),
                   ),
                 ),
-              ),
+                const Text('OR'),
+                const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 64, vertical: 10),
+                    child: Google())
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: const Color(0xFF32B768),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  minimumSize: const Size(200, 49),
-                ),
-                onPressed: () async {
-                  try {
-                    loginUserAndNavigate();
-                  } catch (e) {
-                    print(e.toString());
-                  }
-                },
-                child: const Text('Login'),
-              ),
-            ),
-            const Text('OR'),
-            const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 64, vertical: 10),
-                child: Google())
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
