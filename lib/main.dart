@@ -13,6 +13,7 @@ import 'package:foodie/authentication/screens/delivary.dart';
 import 'package:foodie/Home.dart';
 import 'package:foodie/authentication/screens/register_page.dart';
 import 'package:foodie/authentication/screens/profile_page.dart';
+import 'package:foodie/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: TAppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
           ? const RegisterPage()
