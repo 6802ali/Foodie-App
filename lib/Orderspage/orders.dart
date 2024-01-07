@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/Models/Meal.dart';
 import 'package:foodie/Orderspage/cardbuilder.dart';
 import 'package:foodie/Orderspage/orderdetails.dart';
-import 'package:foodie/Orderspage/orderswidget.dart';
+// import 'package:foodie/Orderspage/orderswidget.dart';
 
 List<Map<String, dynamic>> cardItems = [
   {
