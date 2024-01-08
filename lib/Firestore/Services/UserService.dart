@@ -36,6 +36,10 @@ class UserService {
   }
 
   static void addUser(User user, String userId) {
+    print('addUser');
+    print(user);
+    print(userId);
+
     FirestoreService.addDocWithId(
       Collections.user,
       User.serviceConstructor(user),

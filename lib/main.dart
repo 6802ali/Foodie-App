@@ -3,6 +3,7 @@ import 'package:foodie/Firestore/FirestoreService.dart';
 import 'package:foodie/Orderspage/orderdetails.dart';
 import 'package:foodie/Orderspage/orders.dart';
 import 'package:foodie/Restaurantswidget/restaurantpage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:foodie/navigation.dart';
 import 'firebase_options.dart';
@@ -23,7 +24,11 @@ void main() async {
 
   FirestoreService.getAll(Collections.restaurant);
 
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

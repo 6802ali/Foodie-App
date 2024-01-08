@@ -93,7 +93,7 @@ class FirestoreService {
   static Future<List<dynamic>> getAccessByType(
     String type,
   ) async {
-    final String colName = 'access';
+    final String colName = Collections.access.name;
     final col = firestore.collection(colName);
 
     final QuerySnapshot<Map<String, dynamic>> colQuery =
