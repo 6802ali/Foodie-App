@@ -31,7 +31,7 @@ class TAppBarTheme {
     backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
     iconTheme: IconThemeData(
-      color: Colors.black,
+      color: Colors.white,
       size: 24,
     ),
     actionsIconTheme: IconThemeData(

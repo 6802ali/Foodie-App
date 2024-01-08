@@ -29,6 +29,15 @@ class _ReservationsPageState extends State<ReservationsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Reservations"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.black // Light mode
+              : Colors.white, // Dark mode
+        ),
       ),
       body: ListView.builder(
         itemCount: reservationItems.length,

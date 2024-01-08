@@ -15,7 +15,7 @@ class ReservationCardBuilder extends StatelessWidget {
 
     return Card(
       elevation: 5,
-      color: Colors.white,
+      //color: Theme.of(context).cardColor,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -61,7 +61,7 @@ class ReservationCardBuilder extends StatelessWidget {
                     date,
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                      // color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                   ),
                   SizedBox(width: 10),
@@ -69,7 +69,7 @@ class ReservationCardBuilder extends StatelessWidget {
                     'Guests: $guests',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                      //  color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                   ),
                 ],

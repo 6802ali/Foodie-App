@@ -15,6 +15,7 @@ import 'package:foodie/Home.dart';
 import 'package:foodie/authentication/screens/register_page.dart';
 import 'package:foodie/authentication/screens/profile_page.dart';
 import 'package:foodie/theme/theme.dart';
+import 'package:get/get.dart'; // Import GetX package
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,13 +42,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: TAppTheme.lightTheme,
+    return GetMaterialApp(
+      //  theme: TAppTheme.lightTheme,
+      // theme: _toggleDarkMode(false), // Use the default mode
+      // theme: TAppTheme.lightTheme,
+      // darkTheme: TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
-          ? const RegisterPage()
-          : const Navigation()
-      ,
+          ? const Navigation()
+          : const Navigation(),
       routes: {
         'home': (context) => Home(),
         'RegisterPage': (context) => const RegisterPage(),

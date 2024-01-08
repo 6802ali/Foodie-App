@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foodie/Firestore/Models/Meal.dart';
+import 'package:foodie/Firestore/Models/Order.dart';
+import 'package:foodie/Firestore/Services/OrderService.dart';
 import 'package:foodie/Orderspage/cardbuilder.dart';
 import 'package:foodie/Orderspage/orderdetails.dart';
+import 'package:foodie/Riverpod.dart';
 // import 'package:foodie/Orderspage/orderswidget.dart';
 
 List<Map<String, dynamic>> cardItems = [
@@ -59,7 +63,7 @@ List<Map<String, dynamic>> cardItems = [
   {
     'imagepath': 'assets/restaurant3.jpg',
     'restaurantname': 'Margherita Pizza',
-    'status': 'Delivered',
+    'status': 'cancelled',
     'date': 'Mar 10, 2023',
     'order_id': '11122',
     'username': 'bob',
@@ -125,7 +129,7 @@ List<Map<String, dynamic>> cardItems = [
   {
     'imagepath': 'assets/restaurant6.jpg',
     'restaurantname': 'Vegetarian Salad',
-    'status': 'Delivered',
+    'status': 'cancelled',
     'date': 'Jun 25, 2023',
     'order_id': '77889',
     'username': 'emily',
@@ -146,39 +150,66 @@ List<Map<String, dynamic>> cardItems = [
   },
 ];
 
-class OrdersPage extends StatefulWidget {
+class OrdersPage extends ConsumerStatefulWidget {
   const OrdersPage({super.key});
 
   @override
-  State<OrdersPage> createState() => _OrdersPageState();
+  _OrdersPageState createState() => _OrdersPageState();
 }
 
-class _OrdersPageState extends State<OrdersPage> {
+class _OrdersPageState extends ConsumerState<OrdersPage> {
+  final orders = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // "ref" can be used in all life-cycles of a StatefulWidget.
+    ref.read(userProvider);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("orders"),
-      ),
-      body: ListView.builder(
-        itemCount: cardItems.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OrderDetailsPage(order: cardItems[index]),
-                ),
-              );
-            },
-            child: Cardbuilder(
-              order: cardItems[index],
+    final user = ref.watch(userProvider);
+
+    Future<List<Order>> getOrders() async {
+      return await OrderService.getAllByConsumerId(user.id);
+    }
+
+    return FutureBuilder<List<Order>>(
+      future: getOrders(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          final orders = snapshot.data ?? [];
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("Orders"),
+            ),
+            body: ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            OrderDetailsPage(orderobj: orders[index]),
+                      ),
+                    );
+                  },
+                  child: Cardbuilder(
+                    orderobj: orders[index],
+                  ),
+                );
+              },
             ),
           );
-        },
-      ),
+        }
+      },
     );
   }
 }

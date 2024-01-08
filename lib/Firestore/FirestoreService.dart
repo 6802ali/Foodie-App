@@ -73,6 +73,25 @@ class FirestoreService {
   }
 
   static Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+      getAllByConsumerId(
+    Collections colEnum,
+    String id,
+  ) async {
+    final String colName = colEnum.name;
+    print('colName : ' + colName);
+    print('id : ' + id);
+    final col = firestore.collection(colName);
+
+    final QuerySnapshot<Map<String, dynamic>> colQuery =
+        await col.where('consumer_user_id', isEqualTo: id).get();
+
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> colDocs =
+        colQuery.docs;
+
+    return colDocs;
+  }
+
+  static Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
       getAllByNameSearch(
     Collections colEnum,
     String searchTerm,

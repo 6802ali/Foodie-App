@@ -12,6 +12,22 @@ class OrderService {
     return allOrderModels;
   }
 
+  static Future<List<OrderModel.Order>> getAllByConsumerId(String id) async {
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> allOrderDocs =
+        await FirestoreService.getAllByConsumerId(Collections.order, id);
+    final List<OrderModel.Order> allOrderModels =
+        OrderModel.Order.serviceDocumentListConvertor(allOrderDocs);
+
+    print(
+        '--------------------------------------------------------------------------------------------------------------');
+    print('String id');
+    print(id);
+    print('getAllByConsumerId');
+    print(allOrderModels);
+
+    return allOrderModels;
+  }
+
   static Future<OrderModel.Order> getOrderById(
     String documentId,
   ) async {

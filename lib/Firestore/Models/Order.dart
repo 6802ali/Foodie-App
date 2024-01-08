@@ -4,7 +4,7 @@ class Order {
   final String id;
   final String address;
   final String status;
-  final List<String> meals_id;
+  final List<dynamic> meals_id;
   final String admin_user_id;
   final String consumer_user_id;
   final String delivery_user_id;

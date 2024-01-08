@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/Models/Meal.dart';
+import 'package:foodie/Firestore/Models/User.dart' as UserModel;
+import 'package:foodie/Firestore/Models/Order.dart';
+import 'package:foodie/Firestore/Services/MealService.dart';
+import 'package:foodie/Firestore/Services/OrderService.dart';
+import 'package:foodie/Firestore/Services/UserService.dart';
 import 'package:foodie/Orderspage/cardbuilder.dart';
 
 // ignore: unnecessary_new
@@ -13,28 +19,26 @@ import 'package:foodie/Orderspage/cardbuilder.dart';
 // Add more items as needed
 
 class OrderDetailsPage extends StatelessWidget {
-  final Map<String, dynamic> order;
-  OrderDetailsPage({required this.order});
+  final Order orderobj;
+
+  OrderDetailsPage({required this.orderobj});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text("Order Details"),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
-        body: Column(
-          children: [
-            CardWidget(order: order),
-            DeliveryDetailsWidget(order: order),
-            OrderSummaryWidget(order: order),
-            CancelButtonWidget(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              CardWidget(orderobj: orderobj),
+              DeliveryDetailsWidget(orderobj: orderobj),
+              OrderSummaryWidget(orderobj: orderobj),
+              if (orderobj.status != 'Cancelled')
+                CancelButtonWidget(orderobj: orderobj),
+            ],
+          ),
         ),
       ),
     );
@@ -42,62 +46,78 @@ class OrderDetailsPage extends StatelessWidget {
 }
 
 class CardWidget extends StatelessWidget {
-  final Map<String, dynamic> order;
+  final Order orderobj;
 
-  CardWidget({required this.order});
+  CardWidget({required this.orderobj});
   @override
   Widget build(BuildContext context) {
-    return Cardbuilder(order: order); // need id of card here
+    return Cardbuilder(orderobj: orderobj); // need id of card here
   }
 }
 
 class DeliveryDetailsWidget extends StatelessWidget {
-  final Map<String, dynamic> order;
+  final Order orderobj;
 
-  DeliveryDetailsWidget({required this.order});
+  Future<UserModel.User> getConsumer(String id) {
+    return UserService.getUserById(id);
+  }
+
+  DeliveryDetailsWidget({required this.orderobj});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          title: Text(
-            "Delivery Details",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Center(
-            child: Column(
-              children: [
-                Text("name: ${order['username']}"), // Use order data
-                Text("Address: ${order['address']}"), // Use order data
-                Text("phone number: ${order['phoneNumber']}"), // Use order data
-                // Add more Text widgets as needed
-              ],
-            ),
-          ),
-          trailing: Icon(Icons.location_on),
+    return Column(children: [
+      ListTile(
+        title: Text(
+          "Delivery Details",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        // Displaying address information as Text
-      ],
-    );
+        subtitle: Center(
+          child: FutureBuilder(
+            future: getConsumer(orderobj.consumer_user_id),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Column(children: [
+                  Text("name: " + snapshot.data!.name), // Use order data
+                  Text("Address: ${orderobj.address}"), // Use order data
+                  Text("phone number: " +
+                      snapshot.data!.phone_number), // Use order data
+                  // Add more Text widgets as needed
+                ]);
+              } else if (snapshot.hasError) {
+                // Handle error
+                return Text('Error loading image');
+              } else {
+                // Return a loading indicator or placeholder
+                return CircularProgressIndicator();
+              }
+            },
+          ),
+          /*  */
+        ),
+        trailing: Icon(Icons.location_on),
+      ),
+    ]);
   }
 }
 
 class OrderSummaryWidget extends StatelessWidget {
-  final Map<String, dynamic> order;
+  final Order orderobj;
 
-  OrderSummaryWidget({required this.order});
+  OrderSummaryWidget({required this.orderobj});
+
+  Future<List<Meal>> getMeals(List<dynamic> mealsIds) {
+    return MealService.getAllByIds(mealsIds);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Use order data instead of the dummy list
-    Map<Meal, int> items = order['meals'];
-
-    // Calculate total cost
-    double total = 0.0;
-
-    for (var entry in items.entries) {
-      total += (entry.key.price * entry.value);
+    int calculateOrderTotal(List<Meal> meals) {
+      int total = 0;
+      for (Meal meal in meals) {
+        total += (meal.price);
+      }
+      return total;
     }
 
     return Column(
@@ -110,37 +130,68 @@ class OrderSummaryWidget extends StatelessWidget {
         ),
         Container(
           height: 250,
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              var currentitem = items.entries.toList()[index];
-              Meal item = currentitem.key;
-              int quantity = currentitem.value;
-              double itemTotal = (item.price * quantity) as double;
-              return ListTile(
-                leading: Text(
-                  "${quantity}X",
-                ),
-                title: Text("${item.name}"),
-                trailing: Text("\$${itemTotal.toStringAsFixed(2)}"),
-              );
+          child: FutureBuilder(
+            future: getMeals(orderobj.meals_id),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    var currentitem = snapshot.data![index];
+                    /* Meal item = currentitem.key;
+                    int quantity = currentitem.value;
+                    int itemTotal = (item.price * quantity) as int; */
+                    return ListTile(
+                      /* leading: Text(
+                        "${quantity}X",
+                      ), */
+                      title: Text("${currentitem.name}"),
+                      trailing: Text(currentitem.price.toString()),
+                    );
+                  },
+                );
+              } else if (snapshot.hasError) {
+                // Handle error
+                return Text('Error loading order meals');
+              } else {
+                // Return a loading indicator or placeholder
+                return CircularProgressIndicator();
+              }
             },
           ),
         ),
-        ListTile(
-          title: Text(
-            "Total: \$${total.toStringAsFixed(2)}",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        FutureBuilder(
+          future: getMeals(orderobj.meals_id),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              final mealslist = snapshot.data!;
+              return ListTile(
+                title: Text(
+                  "Total: " + calculateOrderTotal(mealslist).toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              // Handle error
+              return Text('Error loading order meals');
+            } else {
+              // Return a loading indicator or placeholder
+              return CircularProgressIndicator();
+            }
+          },
         ),
+        /*  */
       ],
     );
   }
 }
 
 class CancelButtonWidget extends StatelessWidget {
+  final Order orderobj;
+
+  CancelButtonWidget({required this.orderobj});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -150,7 +201,9 @@ class CancelButtonWidget extends StatelessWidget {
           showCancelWarningDialog(context);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red, // Set the button color to red
+          backgroundColor: Colors.red,
+          foregroundColor: Theme.of(context).cardColor,
+          // Set the button color to red
         ),
         child: Text("Cancel Order"),
       ),
@@ -174,9 +227,20 @@ class CancelButtonWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                // Implement cancellation logic here
-
+                OrderService.updateOrder(
+                    Order(
+                      id: orderobj.id,
+                      address: orderobj.address,
+                      status: 'Cancelled',
+                      meals_id: orderobj.meals_id,
+                      admin_user_id: orderobj.admin_user_id,
+                      consumer_user_id: orderobj.consumer_user_id,
+                      delivery_user_id: orderobj.delivery_user_id,
+                      restaurant_id: orderobj.restaurant_id,
+                    ),
+                    orderobj.id);
                 Navigator.pop(context); //close dialog
+                Navigator.pop(context); // return to main page
                 Navigator.pop(context); // return to main page
               },
               child: Text("Yes"),
