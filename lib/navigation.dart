@@ -12,13 +12,13 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   int _selectedIndex = 0;
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     //add pages here to navigate to//
     Home(),
     SearchPage(),
     Profilepage(),
   ];
-  Widget currentscreen = const Home(); // main screen of the navigation//
+  Widget currentscreen = Home(); // main screen of the navigation//
   final PageStorageBucket bucket = PageStorageBucket();
   @override
   Widget build(BuildContext context) {

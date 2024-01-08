@@ -1,20 +1,29 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foodie/Riverpod.dart';
 import 'package:foodie/authentication/screens/profile_page.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 
-class Updateprofile extends StatefulWidget {
+class Updateprofile extends ConsumerStatefulWidget {
   const Updateprofile({super.key});
 
   @override
-  State<Updateprofile> createState() => _UpdateprofileState();
+  _UpdateprofileState createState() => _UpdateprofileState();
 }
 
-class _UpdateprofileState extends State<Updateprofile> {
+class _UpdateprofileState extends ConsumerState<Updateprofile> {
   File profile_image = File('assets/profile.png');
+
+  @override
+  void initState() {
+    super.initState();
+    // "ref" can be used in all life-cycles of a StatefulWidget.
+    ref.read(userProvider);
+  }
 
   final picker = ImagePicker();
   Future _uploadImage() async {
@@ -26,6 +35,7 @@ class _UpdateprofileState extends State<Updateprofile> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -107,9 +117,10 @@ class _UpdateprofileState extends State<Updateprofile> {
               const SizedBox(
                 height: 30,
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   labelText: 'Full Name',
+                  hintText: user.name,
                   labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
@@ -124,9 +135,10 @@ class _UpdateprofileState extends State<Updateprofile> {
               const SizedBox(
                 height: 30,
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   labelText: 'Email',
+                  hintText: user.email,
                   labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
@@ -141,9 +153,10 @@ class _UpdateprofileState extends State<Updateprofile> {
               const SizedBox(
                 height: 30,
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   labelText: 'address',
+                  hintText: user.address,
                   labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
@@ -158,9 +171,10 @@ class _UpdateprofileState extends State<Updateprofile> {
               const SizedBox(
                 height: 30,
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
+                  hintText: user.phone_number,
                   labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,

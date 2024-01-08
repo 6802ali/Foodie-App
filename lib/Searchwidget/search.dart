@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Firestore/Models/Restaurant.dart';
+import 'package:foodie/Firestore/Services/RestaurantService.dart';
 import 'package:foodie/HomeWidgets/Navtabs.dart';
 import 'package:foodie/Models/RestaurantModel.dart';
+import 'package:foodie/Screens/Restaurantdetailswidgets/restaurantsdetails.dart';
 import 'package:foodie/firebase/Restaurant.dart';
 
 class SearchPage extends StatefulWidget {
@@ -11,30 +15,41 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List<RestaurantModel> restaurants = [];
-  List<RestaurantModel> displayList = [];
+  List<Restaurant> restaurants = [];
+  List<Restaurant> displayList = [];
 
   @override
   void initState() {
     super.initState();
-    getData();
+    /* getData(); */
   }
 
-  Future getData() async {
-    restaurants = await FireRestaurant.getAllRestaurants();
+  Future<List<Restaurant>> getAllBySearch(String searchTerm) async {
+    final firestore_restaurants =
+        await RestaurantService.getAllByNameSearch(searchTerm);
+
+    print('firestore_restaurants');
+    print(firestore_restaurants);
+
+    return firestore_restaurants;
+  }
+
+  Future getData(String searchTerm) async {
+    restaurants = await RestaurantService.getAllByNameSearch(searchTerm);
+
     // Initialize displayList with all restaurants
     displayList = List.from(restaurants);
   }
 
   void updateList(String value) {
+    getData(value);
     setState(() {
       // Check if the search value is not empty
       if (value.isNotEmpty) {
         // Filter the restaurants based on the search value
         displayList = restaurants
-            .where((element) => element.restaurantName!
-                .toLowerCase()
-                .contains(value.toLowerCase()))
+            .where((element) =>
+                element.name!.toLowerCase().contains(value.toLowerCase()))
             .toList();
       } else {
         // If search value is empty, clear the displayList
@@ -46,9 +61,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1f1545),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF1f1545),
+        backgroundColor: Colors.white,
         elevation: 0.0,
       ),
       body: Padding(
@@ -60,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
             Text(
               "Search for a Restaurant !",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -68,6 +83,24 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 20.0,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.network(
+                    'https://th.bing.com/th/id/R.14bfc1e64c9fde9eef5a191a65730764?rik=R8sLpCtLKnIzwg&riu=http%3a%2f%2fwww.vegos.com.au%2fwp-content%2fuploads%2f2020%2f03%2fCheeseburger3.jpg&ehk=trmGTC1sv5GG10G0BJJsEqc9BCakjHkpsHSDDXo4kBM%3d&risl=&pid=ImgRaw&r=0',
+                    height: 100,
+                    width: 100),
+                Image.network(
+                    'https://th.bing.com/th/id/OIP.l86brv9QDLXwJQmCDTjBggHaGu?rs=1&pid=ImgDetMain',
+                    height: 100,
+                    width: 100),
+                Image.network(
+                    'https://th.bing.com/th/id/OIP.eRSPH3Q4nCKcyxMBCz6abwHaHa?rs=1&pid=ImgDetMain',
+                    height: 100,
+                    width: 100),
+              ],
+            ),
+            SizedBox(height: 10),
             TextField(
               onChanged: ((value) => updateList(value)),
               style: TextStyle(color: Colors.white),
@@ -101,16 +134,19 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget buildRestaurantList(RestaurantModel restaurant) {
+  Widget buildRestaurantList(Restaurant restaurant) {
     return ListTile(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantDetailsPage(restaurant: restaurant)));
+      },
       contentPadding: EdgeInsets.all(8.0),
-      title: Text(restaurant.restaurantName,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      title: Text(restaurant.name,
+          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
       subtitle: Text(
-        restaurant.field,
-        style: TextStyle(color: Colors.white),
+        restaurant.location,
+        style: TextStyle(color: Colors.grey),
       ),
-      trailing: Text("${restaurant.rating}"),
+      /* trailing: Text("${restaurant.rating}"), */
     );
   }
 }

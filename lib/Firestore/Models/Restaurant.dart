@@ -46,19 +46,13 @@ class Restaurant {
     return newList;
   }
 
-  static Map<String, dynamic> serviceConstructor({
-    required String name,
-    required String location,
-    required List<String> meals_id,
-    List<String> reservations_id = const [],
-    List<String> reviews_id = const [],
-  }) {
+  static Map<String, dynamic> serviceConstructor(Restaurant restaurant) {
     return {
-      'name': name,
-      'location': location,
-      'meals_id': meals_id,
-      'reservations_id': reservations_id,
-      'reviews_id': reviews_id,
+      'name': restaurant.name,
+      'location': restaurant.location,
+      'meals_id': restaurant.meals_id,
+      'reservations_id': restaurant.reservations_id,
+      'reviews_id': restaurant.reviews_id,
     };
   }
 }

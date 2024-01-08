@@ -6,6 +6,7 @@ import 'package:foodie/Firestore/FirestoreService.dart';
 import 'package:foodie/Orderspage/orderdetails.dart';
 import 'package:foodie/Orderspage/orders.dart';
 import 'package:foodie/Restaurantswidget/restaurantpage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:foodie/navigation.dart';
 import 'firebase_options.dart';
@@ -35,7 +36,11 @@ void main() async {
   //     DeviceOrientation.portraitUp,
   //   ],
   // );
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -53,8 +58,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser == null
           ? const RegisterPage()
-          : const Navigation() //page contains navigation to all the pages//
-      ,
+          : const Navigation(),
       routes: {
         'home': (context) => Home(),
         'RegisterPage': (context) => const RegisterPage(),

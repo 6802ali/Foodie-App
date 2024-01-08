@@ -2,16 +2,21 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foodie/Orderspage/orders.dart';
 import 'package:foodie/Reservationspage/reservationpage.dart';
+import 'package:foodie/Riverpod.dart';
 import 'package:foodie/authentication/screens/update_profile.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:foodie/Firestore/Models/User.dart' as UserModel;
 
-class Profilepage extends StatelessWidget {
+class Profilepage extends ConsumerWidget {
   const Profilepage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -59,8 +64,8 @@ class Profilepage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                'Mohammad', // username variable
+              Text(
+                user.name, // username variable
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -68,8 +73,8 @@ class Profilepage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                'Mohmmed@gmail.com', //email variable
+              Text(
+                user.email, //email variable
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -206,6 +211,7 @@ class Profilepage extends StatelessWidget {
                   GoogleSignIn googleSignIn = GoogleSignIn();
                   googleSignIn.disconnect();
                   await FirebaseAuth.instance.signOut();
+                  /* ref.refresh(userProvider); */
                   Navigator.of(context).pushReplacementNamed('RegisterPage');
                 },
               ),

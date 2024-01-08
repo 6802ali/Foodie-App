@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
+import 'package:foodie/Firestore/Services/UserService.dart';
 
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,14 +28,6 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
   final TextEditingController fullName = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
-
-  static Future<String> getCustomerAccessId() async {
-    final List<dynamic> list =
-        await FirestoreService.getAccessByType('customer');
-    final String accessstr = list[0].type;
-    print('accessstr$accessstr');
-    return accessstr;
-  }
 
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   CollectionReference user = FirebaseFirestore.instance.collection('user');
@@ -187,16 +180,19 @@ class _RegistrationBottomSheetState extends State<RegistrationBottomSheet> {
                           email: emailAddress.text,
                           password: password.text,
                         );
-                        await FirestoreService.addUserWithId(
-                          UserModel.User.serviceConstructor(
-                              name: fullName.text,
-                              email: emailAddress.text,
-                              phone_number: phoneNumber.text,
-                              address: address.text,
-                              password: password.text,
-                              access_id: await getCustomerAccessId()),
+                        final userObj = UserModel.User(
+                            id: '',
+                            name: fullName.text,
+                            email: emailAddress.text,
+                            phone_number: phoneNumber.text,
+                            address: address.text,
+                            password: password.text,
+                            access_id: 'AWfEIj9PeVQqOtEhyYJF');
+                        UserService.addUser(
+                          userObj,
                           FirebaseAuth.instance.currentUser!.uid,
                         );
+                        
                         Navigator.of(context)
                             .pushReplacementNamed('navigation');
                       }

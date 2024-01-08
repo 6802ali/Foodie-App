@@ -4,18 +4,22 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foodie/Firestore/Models/User.dart' as UserModel;
+import 'package:foodie/Firestore/Services/UserService.dart';
+import 'package:foodie/Riverpod.dart';
 import 'package:foodie/authentication/register_page_widgets/sign_in_with_google.dart';
 import 'package:foodie/authentication/validation.dart';
 import 'package:get/get.dart';
 
-class LoginBottomSheet extends StatefulWidget {
+class LoginBottomSheet extends ConsumerStatefulWidget {
   const LoginBottomSheet({super.key});
 
   @override
-  State<LoginBottomSheet> createState() => _LoginBottomSheetState();
+  _LoginBottomSheetState createState() => _LoginBottomSheetState();
 }
 
-class _LoginBottomSheetState extends State<LoginBottomSheet> {
+class _LoginBottomSheetState extends ConsumerState<LoginBottomSheet> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -84,6 +88,12 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
           // Handle other roles or cases
           showErrorMessage('Invalid user role');
         }
+
+        ref.read(userProvider.notifier).addUser(await UserService.getUserById(
+            FirebaseAuth.instance.currentUser!.uid));
+
+        print('ref.read(userProvider)');
+        print(ref.read(userProvider));
       } else {}
     } on FirebaseAuthException catch (e) {
       String errorMessage;
@@ -114,7 +124,16 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    // "ref" can be used in all life-cycles of a StatefulWidget.
+   /*  ref.read(userProvider); */
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('ref.watch(userProvider)');
+    print(ref.watch(userProvider));
     return SingleChildScrollView(
       child: Form(
           key: loginFormKey,
