@@ -80,30 +80,9 @@ class _SearchPageState extends State<SearchPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.network(
-                    'https://th.bing.com/th/id/R.14bfc1e64c9fde9eef5a191a65730764?rik=R8sLpCtLKnIzwg&riu=http%3a%2f%2fwww.vegos.com.au%2fwp-content%2fuploads%2f2020%2f03%2fCheeseburger3.jpg&ehk=trmGTC1sv5GG10G0BJJsEqc9BCakjHkpsHSDDXo4kBM%3d&risl=&pid=ImgRaw&r=0',
-                    height: 100,
-                    width: 100),
-                Image.network(
-                    'https://th.bing.com/th/id/OIP.l86brv9QDLXwJQmCDTjBggHaGu?rs=1&pid=ImgDetMain',
-                    height: 100,
-                    width: 100),
-                Image.network(
-                    'https://th.bing.com/th/id/OIP.eRSPH3Q4nCKcyxMBCz6abwHaHa?rs=1&pid=ImgDetMain',
-                    height: 100,
-                    width: 100),
-              ],
-            ),
-            SizedBox(height: 10),
             TextField(
               onChanged: ((value) => updateList(value)),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 221, 220, 224),
@@ -111,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: BorderSide.none,
                 ),
-                hintText: "eg: Macdonalds",
+                hintText: "eg: Mcdonalds",
                 prefixIcon: Icon(Icons.search),
                 prefixIconColor: Colors.green.shade900,
               ),
@@ -141,10 +120,10 @@ class _SearchPageState extends State<SearchPage> {
       },
       contentPadding: EdgeInsets.all(8.0),
       title: Text(restaurant.name,
-          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       subtitle: Text(
         restaurant.location,
-        style: TextStyle(color: Colors.grey),
+        style: TextStyle(color: Colors.black),
       ),
       /* trailing: Text("${restaurant.rating}"), */
     );
