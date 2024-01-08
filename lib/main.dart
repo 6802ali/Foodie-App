@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:foodie/Firestore/FirestoreService.dart';
 import 'package:foodie/Orderspage/orderdetails.dart';
 import 'package:foodie/Orderspage/orders.dart';
@@ -20,9 +23,18 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  double screenWidth =
+      MediaQueryData.fromView(WidgetsBinding.instance.window).size.width;
+  DeviceOrientation initialOrientation = screenWidth > 600.0
+      ? DeviceOrientation.landscapeLeft
+      : DeviceOrientation.portraitUp;
 
-  FirestoreService.getAll(Collections.restaurant);
-
+  SystemChrome.setPreferredOrientations([initialOrientation]);
+  // SystemChrome.setPreferredOrientations(
+  //   [
+  //     DeviceOrientation.portraitUp,
+  //   ],
+  // );
   runApp(const MyApp());
 }
 
